@@ -6,7 +6,7 @@ gem "rails", "2.3.5", :require_as => nil
 gem "mysql", "2.8.1"
 gem "haml", ">=2.2.5"
 gem "compass", ">=0.10.1"
-# gem "will_paginate",  ">=2.2.2"
+gem "formtastic"
 
 only :development do
   gem "mongrel"
