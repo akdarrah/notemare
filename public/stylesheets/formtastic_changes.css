@@ -12,3 +12,14 @@ The following style may be *conditionally* included for improved support on olde
 form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 
 --------------------------------------------------------------------------------------------------*/
+
+body {
+  width: 700px;
+  margin: 20px auto;
+  font-family: 'Lucida Grande',sans-serif;
+}
+
+.tweet_input { width:660px; height:200px; }
+.tweet_output { width: 660px; height: 4em; }
+
+form.formtastic fieldset.buttons li { float:right; padding-right:0.5em; }
