@@ -7,6 +7,7 @@ gem "mysql", "2.8.1"
 gem "haml", ">=2.2.5"
 gem "compass", ">=0.10.1"
 gem "formtastic"
+gem "authlogic"
 
 only :development do
   gem "mongrel"
