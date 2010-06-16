@@ -1,5 +1,5 @@
-- data =   JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=dubliners&format=json").read)
-
-- data['toptracks']['track'].each do |track|
-  = track['name'] + " - " + track['artist']['name']
-  %br
+- semantic_form_for :artist, :url => { :action => "search" } do |formtastic|
+  - formtastic.inputs do
+    = formtastic.input :name, :label => "Artist Name", :required => true
+  - formtastic.buttons do
+    = formtastic.commit_button :button_html => {:value => "Go!"}

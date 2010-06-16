@@ -1,0 +1,3 @@
+- @search['results']['artistmatches']['artist'].each do |artist|
+  = link_to artist['name'].to_s, :action => 'songs', 'artist[name]' => artist['name'].to_s
+  %br
