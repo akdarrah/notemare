@@ -1,0 +1,5 @@
+- data =   JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=dubliners&format=json").read)
+
+- data['toptracks']['track'].each do |track|
+  = track['name'] + " - " + track['artist']['name']
+  %br

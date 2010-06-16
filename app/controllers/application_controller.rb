@@ -7,7 +7,4 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-  
-  # makes all last_fm api methods available to all controllers
-  last_fm
 end
