@@ -8,6 +8,7 @@ gem "haml", ">=2.2.5"
 gem "compass", ">=0.10.1"
 gem "formtastic"
 gem "authlogic"
+gem "lastfm"
 
 only :development do
   gem "mongrel"
