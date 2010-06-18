@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100617022326) do
+ActiveRecord::Schema.define(:version => 20100618000157) do
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -17,6 +17,16 @@ ActiveRecord::Schema.define(:version => 20100617022326) do
     t.integer  "refer_count",   :default => 0
     t.integer  "fetch_count",   :default => 0
     t.datetime "last_fetch_at", :default => '2010-06-17 04:34:04'
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "songs", :force => true do |t|
+    t.string   "name"
+    t.integer  "artist_id"
+    t.text     "data"
+    t.integer  "fetch_count",   :default => 0
+    t.datetime "last_fetch_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
