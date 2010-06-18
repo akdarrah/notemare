@@ -5,7 +5,7 @@ class CreateArtists < ActiveRecord::Migration
       t.text :data
       t.integer :refer_count, :default => 0
       t.integer :fetch_count, :default => 0
-      t.timestamp :last_fetch_at, :default => Time.now + 4.hours
+      t.timestamp :last_fetch_at, :default => Time.now
       t.timestamps
     end
   end

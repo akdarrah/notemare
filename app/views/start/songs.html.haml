@@ -1,8 +1,5 @@
-- @data['toptracks']['track'].each do |track|
-  / = track['name'].to_s + " - " + track['artist']['name'].to_s
-  - track_name = track['name'].to_s.gsub(/ /, "+")
-  - artist_name = track['artist']['name'].to_s.gsub(/ /, "+")
-  = track_name + " - " + artist_name + " - "
-  - @song = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + artist_name + "?format=json").read)
-  = link_to @song['SongName'], @song['Url']
-  %br
+- code = ""
+- for song in @artist.songs
+  - code << song.shark_id.to_s + ","
+
+= "<script type=\"text/javascript\" src=\"http://gsuser.com/songsWidget/songs/#{code}/?format=js\"></script>"

@@ -4,8 +4,7 @@ class CreateSongs < ActiveRecord::Migration
       t.string :name
       t.references :artist
       t.text :data
-      t.integer :fetch_count, :default => 0
-      t.timestamp :last_fetch_at
+      t.integer :shark_id
       t.timestamps
     end
   end
