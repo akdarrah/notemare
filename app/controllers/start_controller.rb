@@ -41,7 +41,13 @@ class StartController < ApplicationController
         @song_data = @song.data
       end
       @song.save
-    end    
+    end
+    
+    # compile string of song codes
+    @code = ""
+    for song in @artist.songs
+      @code << song.shark_id.to_s + ","
+    end
   end
   
   private

@@ -4,10 +4,4 @@
   - formtastic.buttons do
     = formtastic.commit_button :button_html => {:value => "Go!"}
 
-%br
-
-- code = ""
-- for song in @artist.songs
-  - code << song.shark_id.to_s + ","
-
-= "<script type=\"text/javascript\" src=\"http://gsuser.com/songsWidget/songs/#{code}/?format=js\"></script>"
+%script{:type => "text/javascript", :src => "http://gsuser.com/songsWidget/songs/#{@code}/?format=js"}
