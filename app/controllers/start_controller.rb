@@ -1,6 +1,5 @@
 class StartController < ApplicationController
   
-  # TODO:: sanitize user input of artist name
   # TODO:: handle case in which no results are found
   # TODO:: strip symbols out of song titles
   # TODO:: make update time dynamic
@@ -8,7 +7,6 @@ class StartController < ApplicationController
   # TODO:: add random / multiple artist support
   # TODO:: make everything ajax
   # TODO:: add similar artists to player page
-  # TODO:: search for artist first to make sure valid artist
   
   layout 'base.html.haml'
   
@@ -17,9 +15,8 @@ class StartController < ApplicationController
   end
   
   def songs
-    # determine whether lastfm data has already been stored for this artist
-    # if data is less than a week old use the stored data
-    # if data is more than a week old fetch new data from lastfm
+    # determine where to fetch the artist song data from (either lastfm or localhost)
+    # and return a string of grooveshark ids to be injected into the player
     @artist = Artist.find_or_create_by_name(string_title(params[:artist][:name]))
     @code = ""
     if update?(@artist) || @artist.data == nil
@@ -59,7 +56,7 @@ class StartController < ApplicationController
   def tiny_song_artist(data)
     track = string_title(data['name'])
     artist = string_title(data['artist']['name'])
-    s_data = JSON.parse(open("http://tinysong.com/b/" + track + "+" + artist + "?format=json&limit=3").read)
+    s_data = JSON.parse(open("http://tinysong.com/b/" + track + "+" + artist + "?format=json").read)
     return s_data['ArtistName']
   end
   

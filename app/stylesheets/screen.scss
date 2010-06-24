@@ -4,3 +4,34 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+
+#wrapper {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 200px;
+}
+
+/** SEARCH FORM ********/
+
+#wrapper form {
+  width: 400px;
+  margin: 5px 0 10px 53px;
+}
+
+#wrapper form .inputs {
+  display: inline;
+  margin-right: 2px;
+}
+
+
+#wrapper form .buttons {
+  display: inline;
+}
+
+/** PLAYER ************/
+
+#wrapper object {
+  width: 400px;
+  margin-left: 50px;
+  padding: 2px;
+}

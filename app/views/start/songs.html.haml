@@ -1,7 +1,3 @@
-- semantic_form_for @artist, :url => { :action => "songs" } do |formtastic|
-  - formtastic.inputs do
-    = formtastic.input :name, :label => false, :require => true
-  - formtastic.buttons do
-    = formtastic.commit_button :button_html => {:value => "Go!"}
+= render :partial => "search"
 
 %script{:type => "text/javascript", :src => "http://gsuser.com/songsWidget/songs/#{@code}/?format=js"}

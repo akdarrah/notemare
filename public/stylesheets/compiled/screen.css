@@ -61,3 +61,36 @@ q:before, q:after, blockquote:before, blockquote:after {
 a img {
   border: none;
 }
+
+/* line 8, ../../../app/stylesheets/screen.scss */
+#wrapper {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 200px;
+}
+
+/** SEARCH FORM ********/
+/* line 16, ../../../app/stylesheets/screen.scss */
+#wrapper form {
+  width: 400px;
+  margin: 5px 0 10px 53px;
+}
+
+/* line 21, ../../../app/stylesheets/screen.scss */
+#wrapper form .inputs {
+  display: inline;
+  margin-right: 2px;
+}
+
+/* line 27, ../../../app/stylesheets/screen.scss */
+#wrapper form .buttons {
+  display: inline;
+}
+
+/** PLAYER ************/
+/* line 33, ../../../app/stylesheets/screen.scss */
+#wrapper object {
+  width: 400px;
+  margin-left: 50px;
+  padding: 2px;
+}
