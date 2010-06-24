@@ -5,7 +5,6 @@ class StartController < ApplicationController
   # TODO:: make update time dynamic
   # TODO:: improve artist validation
   # TODO:: add random / multiple artist support
-  # TODO:: make everything ajax
   # TODO:: add similar artists to player page
   
   layout 'base.html.haml'
@@ -31,7 +30,7 @@ class StartController < ApplicationController
         track_name = string_title(track['name'])
         artist_name = string_title(track['artist']['name'])
         @song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + artist_name + "?format=json&limit=3").read)
-        @code << groove_id(@song_data, ts_artist).to_s + ","
+        @code << groove_id(@song_data, ts_artist)
       end
       @artist.shark_code = @code
     else
@@ -40,6 +39,11 @@ class StartController < ApplicationController
       @code = @artist.shark_code
     end
     @artist.save
+    
+    respond_to do |format|
+      format.html {render :action => "songs"}
+      format.js { render :partial => 'songs.js.erb' }
+    end
   end
   
   private
@@ -48,7 +52,8 @@ class StartController < ApplicationController
   # return the grooveshark id for the appropriate song as long
   # as artistname is the expected artistname
   def groove_id(data, artist_name)
-    return data['SongID'] if data['ArtistName'] == artist_name
+    return data['SongID'].to_s + "," if data['ArtistName'] == artist_name
+    return ""
   end
   
   # use the most popular song and artist name to make a query to tinysong

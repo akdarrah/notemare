@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20100617022326) do
     t.string   "shark_code"
     t.integer  "refer_count",   :default => 0
     t.integer  "fetch_count",   :default => 0
-    t.datetime "last_fetch_at", :default => '2010-06-23 23:26:19'
+    t.datetime "last_fetch_at", :default => '2010-06-24 00:14:43'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
