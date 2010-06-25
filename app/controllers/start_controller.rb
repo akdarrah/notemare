@@ -24,6 +24,8 @@ class StartController < ApplicationController
       @artist.fetch_count = @artist.fetch_count + 1
       @artist.refer_count = @artist.refer_count + 1
       @artist.last_fetch_at = Time.now
+      
+      # get the artists songs
       # use tinysong api to loop through list of tracks and get grooveshark ids
       ts_artist = tiny_song_artist(@data['toptracks']['track'][0])
       @data['toptracks']['track'].each do |track|
@@ -33,6 +35,13 @@ class StartController < ApplicationController
         @code << groove_id(@song_data, ts_artist)
       end
       @artist.shark_code = @code
+
+      # get similar artists and create similar artist objects
+      @recommend_data = JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + @artist.name + "&api_key=25c1d3e948b977d8893a92467d647a21&limit=3&format=json").read)
+      @recommend_data['similarartists']['artist'].each do |similar|
+        puts "\n" + similar['name'] + "------------------------------------------------------------------\n"
+      end
+      
     else
       @data = JSON.parse(@artist.data)
       @artist.refer_count = @artist.refer_count + 1

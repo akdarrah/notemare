@@ -3,6 +3,7 @@ jQuery.ajaxSetup({ 'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "
 $(document).ready(function() {
   
   // replace + symbols with spaces in search field
+  // this function is not used if ajax is used
   $("#artist_name").attr("value", $("#artist_name").val().replace(/[+]+/,' '));
 
   // when the search form is submitted, send an ajax request to the server

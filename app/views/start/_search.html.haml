@@ -1,5 +1,5 @@
 - semantic_form_for @artist, :url => { :action => "songs" } do |formtastic|
   - formtastic.inputs do
-    = formtastic.input :name, :label => false, :require => true
+    = formtastic.input :name, :label => false, :require => true, :input_html => {:spellcheck => "false"}
   - formtastic.buttons do
     = formtastic.commit_button :button_html => {:value => "GO"}
