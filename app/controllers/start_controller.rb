@@ -5,8 +5,8 @@ class StartController < ApplicationController
   # TODO:: make update time dynamic
   # TODO:: improve artist validation
   # TODO:: add random / multiple artist support
-  # TODO:: add similar artists to player page
-  # TODO:: store JSON before parsing to avoid generating
+  # TODO:: add similar artists feature
+  # TODO:: indicate loading
   
   layout 'base.html.haml'
   
@@ -19,8 +19,8 @@ class StartController < ApplicationController
     @artist = Artist.find_or_create_by_name(string_title(params[:artist][:name]))
     @code = ""
     if update?(@artist) || @artist.data == nil
-      @data = JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + @artist.name + "&format=json").read)
-      @artist.data = JSON.generate(@data)
+      @artist.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + @artist.name + "&format=json").read
+      @data = JSON.parse(@artist.data)
       @artist.fetch_count = @artist.fetch_count + 1
       @artist.refer_count = @artist.refer_count + 1
       @artist.last_fetch_at = Time.now
@@ -39,8 +39,8 @@ class StartController < ApplicationController
 
       ##################################### UPDATE SIMILAR ARTISTS
       # get similar artists and create similar artist objects
-      @recommend_data = JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + @artist.name + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read)
-      @artist.similar_data = JSON.generate(@recommend_data)
+      @artist.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + @artist.name + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
+      @recommend_data = JSON.parse(@artist.similar_data)
       
     else
       # NO UPDATE REQUIRED
