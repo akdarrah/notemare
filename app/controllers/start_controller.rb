@@ -6,11 +6,11 @@ class StartController < ApplicationController
   # TODO:: improve artist validation
   # TODO:: add random / multiple artist support
   # TODO:: add similar artists to player page
+  # TODO:: store JSON before parsing to avoid generating
   
   layout 'base.html.haml'
   
   def index
-    @artist = Artist.new
   end
   
   def songs
@@ -25,6 +25,7 @@ class StartController < ApplicationController
       @artist.refer_count = @artist.refer_count + 1
       @artist.last_fetch_at = Time.now
       
+      ##################################### UPDATE SONGS
       # get the artists songs
       # use tinysong api to loop through list of tracks and get grooveshark ids
       ts_artist = tiny_song_artist(@data['toptracks']['track'][0])
@@ -36,16 +37,17 @@ class StartController < ApplicationController
       end
       @artist.shark_code = @code
 
+      ##################################### UPDATE SIMILAR ARTISTS
       # get similar artists and create similar artist objects
-      @recommend_data = JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + @artist.name + "&api_key=25c1d3e948b977d8893a92467d647a21&limit=3&format=json").read)
-      @recommend_data['similarartists']['artist'].each do |similar|
-        puts "\n" + similar['name'] + "------------------------------------------------------------------\n"
-      end
+      @recommend_data = JSON.parse(open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + @artist.name + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read)
+      @artist.similar_data = JSON.generate(@recommend_data)
       
     else
+      # NO UPDATE REQUIRED
       @data = JSON.parse(@artist.data)
       @artist.refer_count = @artist.refer_count + 1
       @code = @artist.shark_code
+      @recommend_data = JSON.parse(@artist.similar_data)
     end
     @artist.save
     

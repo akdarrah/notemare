@@ -14,10 +14,11 @@ ActiveRecord::Schema.define(:version => 20100617022326) do
   create_table "artists", :force => true do |t|
     t.string   "name"
     t.text     "data"
+    t.text     "similar_data"
     t.string   "shark_code"
     t.integer  "refer_count",   :default => 0
     t.integer  "fetch_count",   :default => 0
-    t.datetime "last_fetch_at", :default => '2010-06-24 18:57:17'
+    t.datetime "last_fetch_at", :default => '2010-06-25 01:22:18'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
