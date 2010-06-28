@@ -5,7 +5,8 @@ class StartController < ApplicationController
   # TODO:: add similar artists feature
   # TODO:: indicate loading
   # TODO:: make sure songs belong to artist
-  # TODO:: make sure groove_id is not a duplicate
+  # TODO:: make format_for_lastFM only remove first 'the'
+  # TODO:: throw an error when artist not found
   
   layout 'base.html.haml'
   
@@ -34,9 +35,9 @@ class StartController < ApplicationController
         # get the artists songs
         # use tinysong api to loop through list of tracks and get grooveshark ids
         @data['toptracks']['track'].each do |track|
-          track_name = format_for_URL(track['name'])
-          artist_name = format_for_URL(track['artist']['name'])
-          @song_data = JSON.parse(open("http://tinysong.com/b/" + format_song_for_tiny_song(track_name) + "+" + artist_name + "?format=json&limit=3").read)
+          track_name = format_for_URL(format_song_for_tiny_song(track['name']))
+          url = "http://tinysong.com/b/" + track_name + "+" + @artist.name + "?format=json"
+          @song_data = JSON.parse(open(url).read)
           @code << @song_data['SongID'].to_s + ","
         end
         @artist.shark_code = @code
