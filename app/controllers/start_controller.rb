@@ -16,11 +16,11 @@ class StartController < ApplicationController
     # determine where to fetch the artist song data from (either lastfm or localhost)
     # and return a string of grooveshark ids to be injected into the player
     # first make a query to tinysong using the given artist name
-    lookup = open("http://tinysong.com/b/" + format_for_URL(params[:artist][:name]) + "?format=json").read
-    lookup_data = JSON.parse(lookup)
+    lookup_data = JSON.parse(open("http://tinysong.com/b/" + format_for_URL(params[:artist][:name]) + "?format=json").read)
 
     # if lookup_data is an empty set you do not have a valid artist
     unless lookup_data == []
+      # UPDATE REQUIRED
       @artist = Artist.find_or_create_by_name(format_for_URL(lookup_data['ArtistName']))
       @code = ""
       if update?(@artist) || @artist.data == nil
@@ -31,18 +31,14 @@ class StartController < ApplicationController
         @artist.last_fetch_at = Time.now
       
         ##################################### UPDATE SONGS
-        # get the artists songs
-        # use tinysong api to loop through list of tracks and get grooveshark ids
         @data['toptracks']['track'].each do |track|
           track_name = format_for_URL(format_song_for_tiny_song(track['name']))
-          url = "http://tinysong.com/b/" + track_name + "+" + @artist.name + "?format=json"
-          @song_data = JSON.parse(open(url).read)
+          @song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + @artist.name + "?format=json").read)
           @code << @song_data['SongID'].to_s + ","
         end
         @artist.shark_code = @code
 
         ##################################### UPDATE SIMILAR ARTISTS
-        # get similar artists and create similar artist objects
         @artist.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + @artist.name + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
         @recommend_data = JSON.parse(@artist.similar_data)
       else
