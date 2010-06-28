@@ -5,7 +5,6 @@ class StartController < ApplicationController
   # TODO:: add similar artists feature
   # TODO:: indicate loading
   # TODO:: make sure songs belong to artist
-  # TODO:: make format_for_lastFM only remove first 'the'
   # TODO:: throw an error when artist not found
   
   layout 'base.html.haml'
@@ -84,15 +83,9 @@ class StartController < ApplicationController
   # lowercases search term
   # removes unneeded words from the string
   def format_for_lastFM(str)
-    parts = str.split('+')
-    result = ""
-    parts.each do |part|
-      part = "" if part == "The" || part == "the"
-      result << part
-      result << "+" unless part == ""
-    end
-    result[result.length-1] = ''
-    return result.downcase
+    part = str.split('+')
+    part[0] = "" if part[0].downcase == "the"
+    return part.join('+').downcase
   end
   
 end
