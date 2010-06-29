@@ -66,29 +66,33 @@ a img {
 #wrapper {
   width: 500px;
   margin: 0 auto;
-  margin-top: 200px;
+}
+
+/* line 13, ../../../app/stylesheets/screen.scss */
+#logo {
+  margin: 30px 0 40px 140px;
 }
 
 /** SEARCH FORM ********/
-/* line 16, ../../../app/stylesheets/screen.scss */
+/* line 19, ../../../app/stylesheets/screen.scss */
 #wrapper form {
   width: 400px;
   margin: 5px 0 10px 53px;
 }
 
-/* line 21, ../../../app/stylesheets/screen.scss */
+/* line 24, ../../../app/stylesheets/screen.scss */
 #wrapper form .inputs {
   display: inline;
   margin-right: 2px;
 }
 
-/* line 27, ../../../app/stylesheets/screen.scss */
+/* line 30, ../../../app/stylesheets/screen.scss */
 #wrapper form .buttons {
   display: inline;
 }
 
 /** PLAYER ************/
-/* line 33, ../../../app/stylesheets/screen.scss */
+/* line 36, ../../../app/stylesheets/screen.scss */
 #wrapper object {
   width: 400px;
   margin-left: 50px;

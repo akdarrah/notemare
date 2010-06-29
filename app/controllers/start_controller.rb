@@ -1,7 +1,6 @@
 class StartController < ApplicationController
   
   # TODO:: make update time dynamic
-  # TODO:: fix recommendations on multiple artists
   # TODO:: add similar artists feature
   # TODO:: indicate loading
   # TODO:: make sure songs belong to artist
