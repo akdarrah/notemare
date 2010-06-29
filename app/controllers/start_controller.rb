@@ -53,7 +53,8 @@ class StartController < ApplicationController
           @recommend_data = JSON.parse(@artist.similar_data)
         end
         @artist.save
-
+        
+        @code = scramble(@code)
         respond_to do |format|
           format.html {render :action => "songs"}
           format.js { render :partial => 'songs.js.erb' }
@@ -103,6 +104,7 @@ class StartController < ApplicationController
         end
       end
       # respond to request after all artists have been iterated
+      @code = scramble(@code)
       respond_to do |format|
         format.html {render :action => "songs"}
         format.js { render :partial => 'songs.js.erb' }
@@ -133,6 +135,12 @@ class StartController < ApplicationController
   # slices a string into an array divided at ',' symbols
   def slice_string(str)
     return str.split(',')
+  end
+  
+  # accepts a string of grooveshark ids seperated by ',' symbols
+  # returns a string of the same grooveshark ids in a different order
+  def scramble(str)
+    return str.split(',').sort_by{rand}.join(',')
   end
   
   # lowercases search term
