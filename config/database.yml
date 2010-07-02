@@ -2,25 +2,22 @@ development:
   adapter: mysql
   encoding: utf8
   database: min_dev
-  username:
+  username: root
   password: 
   socket: /tmp/mysql.sock
-  host: 127.0.0.1
 
 test:
   adapter: mysql
   encoding: utf8
   database: min_root
-  username:
+  username: root
   password: 
   socket: /tmp/mysql.sock
-  host: 127.0.0.1
 
 production:
   adapter: mysql
   encoding: utf8
   database: min_prod
-  username:
+  username: root
   password: 
   socket: /tmp/mysql.sock
-  host: 127.0.0.1
