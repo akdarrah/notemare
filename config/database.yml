@@ -20,4 +20,5 @@ production:
   database: min_prod
   username: root
   password: 
-  socket: /tmp/mysql.sock
+  socket: /usr/bin/mysql
+  
