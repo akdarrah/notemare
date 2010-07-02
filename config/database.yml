@@ -4,7 +4,7 @@ development:
   database: min_dev
   username: root
   password: prodpass1!
-  socket: /tmp/mysql.sock
+  socket: /usr/bin/mysql
 
 test:
   adapter: mysql
@@ -12,7 +12,7 @@ test:
   database: min_root
   username: root
   password: prodpass1!
-  socket: /tmp/mysql.sock
+  socket: /usr/bin/mysql
 
 production:
   adapter: mysql
@@ -20,4 +20,4 @@ production:
   database: min_prod
   username: root
   password: prodpass1!
-  socket: /tmp/mysql.sock
+  socket: /usr/bin/mysql
