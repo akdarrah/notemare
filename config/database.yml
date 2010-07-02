@@ -20,4 +20,4 @@ production:
   database: min_prod
   username: root
   password: prodpass1!
-  socket: /tmp/mysql.sock
+  socket: /usr/sbin/mysqld 
