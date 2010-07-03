@@ -5,6 +5,8 @@ class StartController < ApplicationController
   # TODO:: indicate loading
   # TODO:: make sure songs belong to artist
   # TODO:: throw an error when artist not found
+  # TODO:: add logos
+  # TOOD:: make update delayed jobs
   
   layout 'base.html.haml'
   

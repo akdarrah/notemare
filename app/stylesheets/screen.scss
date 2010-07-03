@@ -5,6 +5,11 @@
 
 @import "compass/reset";
 
+body {
+  font-family: 'lucida grande', lucida, tahoma, helvetica, arial, sans-serif;
+  font-size: 13px;
+}
+
 #wrapper {
   width: 500px;
   margin: 0 auto;
@@ -37,4 +42,11 @@
   width: 400px;
   margin-left: 50px;
   padding: 2px;
+}
+
+#credits {
+  width: 400px;
+  margin-left: 55px;
+  padding: 2px;
+  font-size: 10px;
 }
