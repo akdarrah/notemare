@@ -1,23 +1,48 @@
+# development:
+#   adapter: mysql
+#   encoding: utf8
+#   database: min_dev
+#   username: root
+#   password: 
+#   socket: /tmp/mysql.sock
+# 
+# test:
+#   adapter: mysql
+#   encoding: utf8
+#   database: min_root
+#   username: root
+#   password: 
+#   socket: /tmp/mysql.sock
+# 
+# production:
+#   adapter: mysql
+#   encoding: utf8
+#   database: min_prod
+#   username: root
+#   password: 
+#   socket: /tmp/mysql.sock
+# 
+
 development:
   adapter: mysql
-  encoding: utf8
   database: min_dev
   username: root
-  password: 
-  socket: /tmp/mysql.sock
+  password: prodpass1!
+  host: localhost
+  socket: /var/run/mysqld/mysqld.sock
 
 test:
   adapter: mysql
-  encoding: utf8
-  database: min_root
+  database: min_test
   username: root
-  password: 
-  socket: /tmp/mysql.sock
+  password: prodpass1!
+  host: localhost
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql
-  encoding: utf8
   database: min_prod
   username: root
-  password: 
-  socket: /tmp/mysql.sock
+  password: prodpass1!
+  host: localhost
+  socket: /var/run/mysqld/mysqld.sock
