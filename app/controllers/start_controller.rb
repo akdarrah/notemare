@@ -64,7 +64,7 @@ class StartController < ApplicationController
         
         @code = scramble(@code)
         respond_to do |format|
-          format.html {render :action => "songs"}
+          # format.html {render :action => "songs"}
           format.js { render :partial => 'songs.js.erb' }
         end
       end
@@ -114,7 +114,7 @@ class StartController < ApplicationController
       # respond to request after all artists have been iterated
       @code = scramble(@code)
       respond_to do |format|
-        format.html {render :action => "songs"}
+        # format.html {render :action => "songs"}
         format.js { render :partial => 'songs.js.erb' }
       end
     end
