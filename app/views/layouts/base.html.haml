@@ -7,8 +7,8 @@
     = stylesheet_link_tag "compiled/screen", "compiled/print"
     /[if IE]
       = stylesheet_link_tag "compiled/ie"
-    = yield :head
-    %title#title Title
+    %title Title
+    = render :partial => "layouts/google.html.haml"
   %body
     #wrapper
       #logo= image_tag('banner.png')
