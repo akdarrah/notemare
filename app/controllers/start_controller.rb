@@ -1,12 +1,19 @@
 class StartController < ApplicationController
   
-  # TODO:: make update time dynamic
-  # TODO:: add similar artists feature
-  # TODO:: indicate loading
-  # TODO:: make sure songs belong to artist
-  # TODO:: throw an error when artist not found
-  # TODO:: add logos
-  # TOOD:: make update delayed jobs
+  # FEATURE:: make update time dynamic
+  # FEATURE:: add similar artists feature
+  # FEATURE:: indicate loading
+  # FEATURE:: make sure songs belong to artist
+  # FEATURE:: throw an error when artist not found
+  # FEATURE:: make update delayed jobs
+  # FEATURE:: add 'Mix' model for saving playlists
+  # FEATURE:: style app to look cool
+  # FEATURE:: add embed code into site and share links
+  # FEATURE:: add amazon adds/link to lastfm profile
+  
+  # CHORE:: move logic to Artist model
+  # CHORE:: add artist controller with CRUD ops
+  # CHORE:: link styles
   
   layout 'base.html.haml'
   
