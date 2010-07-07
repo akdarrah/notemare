@@ -2,7 +2,6 @@ class StartController < ApplicationController
   
   # FEATURE:: make update time dynamic
   # FEATURE:: add similar artists feature
-  # FEATURE:: indicate loading
   # FEATURE:: make sure songs belong to artist
   # FEATURE:: throw an error when artist not found
   # FEATURE:: make update delayed jobs

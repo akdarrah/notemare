@@ -27,17 +27,17 @@ development:
   adapter: mysql
   database: min_dev
   username: root
-  password: 
+  password: prodpass1!
   host: localhost
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 test:
   adapter: mysql
   database: min_test
   username: root
-  password: 
+  password: prodpass1!
   host: localhost
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql

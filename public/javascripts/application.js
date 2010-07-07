@@ -2,14 +2,17 @@ jQuery.ajaxSetup({ 'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "
 
 $(document).ready(function() {
   
-  // replace + symbols with spaces in search field
-  // this function is not used if ajax is used
-  $("#artist_name").attr("value", $("#artist_name").val().replace(/[+]+/,' '));
-
+  // hide the loader gif image by default
+  $("#loader").hide();
+  
   // when the search form is submitted, send an ajax request to the server
   // and get the grooveshark code for the artist
   $("form.artist").submit(function() {
-    $.post("/start/songs?artist[name]=" + $("#artist_name").val(), $(this).serialize(), null, "script")
+    $.post("/start/songs?artist[name]=" + $("#artist_name").val(), $(this).serialize(), null, "script");
+    // disable form input
+    $("#artist_submit").hide();
+    $("#loader").show();
+    $("#artist_name").attr("disabled", true);
     return false;
   });
 
