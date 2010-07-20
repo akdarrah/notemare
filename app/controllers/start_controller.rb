@@ -25,6 +25,12 @@ class StartController < ApplicationController
     
     # if only one artist was entered, use the default algorithm
     if artists.length == 1
+      
+      # determine whether to randomize the results or not
+      # if user inserted a ! into input, remove it
+      randomize = true if artists[0][-1,1] == '!'
+      artists[0] = artists[0].split("!")[0] if randomize
+      
       @code = ""
       # determine where to fetch the artist song data from (either lastfm or localhost)
       # and return a string of grooveshark ids to be injected into the player
@@ -61,7 +67,7 @@ class StartController < ApplicationController
         end
         @artist.save
         
-        @code = scramble(@code)
+        @code = scramble(@code) if randomize == true
         respond_to do |format|
           # format.html {render :action => "songs"}
           format.js { render :partial => 'songs.js.erb' }
