@@ -10,6 +10,15 @@ body {
   font-size: 13px;
 }
 
+a, a:visited {
+  color: #A60;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 #wrapper {
   width: 500px;
   margin: 0 auto;

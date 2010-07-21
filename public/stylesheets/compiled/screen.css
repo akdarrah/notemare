@@ -69,44 +69,55 @@ body {
 }
 
 /* line 13, ../../../app/stylesheets/screen.scss */
+a, a:visited {
+  color: #A60;
+  text-decoration: none;
+}
+
+/* line 18, ../../../app/stylesheets/screen.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* line 22, ../../../app/stylesheets/screen.scss */
 #wrapper {
   width: 500px;
   margin: 0 auto;
 }
 
-/* line 18, ../../../app/stylesheets/screen.scss */
+/* line 27, ../../../app/stylesheets/screen.scss */
 #logo {
   margin: 50px auto 20px auto;
   width: 349px;
 }
 
 /** SEARCH FORM ********/
-/* line 25, ../../../app/stylesheets/screen.scss */
+/* line 34, ../../../app/stylesheets/screen.scss */
 #wrapper form {
   width: 400px;
   margin: 5px 0 10px 53px;
 }
 
-/* line 30, ../../../app/stylesheets/screen.scss */
+/* line 39, ../../../app/stylesheets/screen.scss */
 #wrapper form .inputs {
   display: inline;
   margin-right: 2px;
 }
 
-/* line 36, ../../../app/stylesheets/screen.scss */
+/* line 45, ../../../app/stylesheets/screen.scss */
 #wrapper form .buttons {
   display: inline;
 }
 
 /** PLAYER ************/
-/* line 42, ../../../app/stylesheets/screen.scss */
+/* line 51, ../../../app/stylesheets/screen.scss */
 #wrapper object {
   width: 400px;
   margin-left: 50px;
   padding: 2px;
 }
 
-/* line 48, ../../../app/stylesheets/screen.scss */
+/* line 57, ../../../app/stylesheets/screen.scss */
 #credits {
   width: 400px;
   margin-left: 55px;
