@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/boot'
+dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+require 'rubygems'
+require 'daemons'
+ 
+daemon_options = {
+  :multiple => false,
+  :dir_mode => :normal,
+  :dir => File.join(dir, 'tmp', 'pids'),
+  :backtrace => true
+}
+ 
+Daemons.run_proc('artist_worker', daemon_options) do
+  if ARGV.include?('--')
+    ARGV.slice! 0..ARGV.index('--')
+  else
+    ARGV.clear
+  end
+  
+  Dir.chdir dir
+  require File.join('config', 'environment')
+  
+  Delayed::Worker.new.start
+end
