@@ -5,7 +5,8 @@ class Artist < ActiveRecord::Base
   # updates artist data using lastFM and grooveshark
   def fetch
     ### UPDATE META DATA
-    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json").read
+    self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json" if self.source_url.nil?
+    self.data = open(self.source_url).read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
 

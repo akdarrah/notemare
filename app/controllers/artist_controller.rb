@@ -13,8 +13,8 @@ class ArtistController < ApplicationController
   # FEATURE:: add admin section
     # Audit artist form
     # Delayed Jobs interface
-  # CHORE:: make artist model store source_url so it can be overriden
-  # CHORE:: rename start controller to artist controller
+    # list all artists
+  # CHORE:: queue jobs at set time interval instead of now
   
   layout 'base.html.haml'
   
