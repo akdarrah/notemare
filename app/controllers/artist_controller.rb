@@ -1,4 +1,4 @@
-class StartController < ApplicationController
+class ArtistController < ApplicationController
   
   # FEATURE:: make update time dynamic
   # FEATURE:: add similar artists feature
@@ -14,6 +14,7 @@ class StartController < ApplicationController
     # Audit artist form
     # Delayed Jobs interface
   # CHORE:: make artist model store source_url so it can be overriden
+  # CHORE:: rename start controller to artist controller
   
   layout 'base.html.haml'
   

@@ -8,7 +8,7 @@ $(document).ready(function() {
   // when the search form is submitted, send an ajax request to the server
   // and get the grooveshark code for the artist
   $("form.artist").submit(function() {
-    $.post("/start/songs?artist[name]=" + $("#artist_name").val(), $(this).serialize(), null, "script");
+    $.post("/artist/songs?artist[name]=" + $("#artist_name").val(), $(this).serialize(), null, "script");
     // disable form input
     $("#artist_submit").hide();
     $("#loader").show();
