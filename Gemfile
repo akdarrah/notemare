@@ -6,6 +6,7 @@ gem "compass", ">=0.10.1"
 gem "formtastic"
 gem "authlogic"
 gem "json"
+gem "delayed_job"
 
 group :development do
   gem "mongrel"

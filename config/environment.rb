@@ -47,5 +47,6 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 
+require 'delayed_job'
 require 'open-uri'
 require 'json'

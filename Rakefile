@@ -8,3 +8,6 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+require 'delayed_job'
+require 'delayed/tasks'
