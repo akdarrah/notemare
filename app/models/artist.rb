@@ -30,10 +30,9 @@ class Artist < ActiveRecord::Base
     return {:code => self.shark_code, :similar => self.similar_data}
   end
   
-  # returns true if data is more than 1 week old
+  # Queues ArtistWorker Delayed Job if data is more than 1 week old
   def expired?
-    return true if (Time.now - self.last_fetch_at) > 1.week
-    false
+    Delayed::Job.enqueue ArtistWorker.new(self.id) if (Time.now - self.last_fetch_at) > 1.week
   end
 
 protected
