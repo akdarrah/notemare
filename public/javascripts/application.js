@@ -5,6 +5,9 @@ $(document).ready(function() {
   // hide the loader gif image by default
   $("#loader").hide();
   
+  // hide artist_data panel
+  $("#artist_data").hide();
+  
   // when the search form is submitted, send an ajax request to the server
   // and get the grooveshark code for the artist
   $("form.artist").submit(function() {

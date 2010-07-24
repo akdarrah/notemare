@@ -59,4 +59,29 @@ a:hover {
   margin-left: 55px;
   padding: 2px;
   font-size: 10px;
+  float: left;
+}
+
+/** ARTIST INFO ************/
+
+#artist_data {
+  width: 400px;
+  margin: 5px 46px 5px 0;
+  float: right;
+}
+
+#artist_data .info {
+  margin: 3px;
+  font-size: 10px;
+}
+
+#artist_data .info .name {
+  font-size: 14px !important;
+  margin-bottom: 4px;
+}
+
+#artist_data .image {
+  float: left;
+  padding: 3px;
+  padding-right: 10px;
 }

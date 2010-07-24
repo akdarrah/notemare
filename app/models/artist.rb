@@ -6,6 +6,7 @@ class Artist < ActiveRecord::Base
   def fetch
     ### UPDATE META DATA
     self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json" if self.source_url.nil?
+    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json").read
     data = open(self.source_url).read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
@@ -32,7 +33,7 @@ class Artist < ActiveRecord::Base
   def get_data
     self.refer_count = self.refer_count + 1
     save
-    return {:code => self.shark_code, :similar => self.similar_data}
+    return {:data => self.data, :code => self.shark_code, :similar => self.similar_data}
   end
   
   # Queues ArtistWorker Delayed Job if data is more than 1 week old

@@ -123,4 +123,32 @@ a:hover {
   margin-left: 55px;
   padding: 2px;
   font-size: 10px;
+  float: left;
+}
+
+/** ARTIST INFO ************/
+/* line 67, ../../../app/stylesheets/screen.scss */
+#artist_data {
+  width: 400px;
+  margin: 5px 46px 5px 0;
+  float: right;
+}
+
+/* line 73, ../../../app/stylesheets/screen.scss */
+#artist_data .info {
+  margin: 3px;
+  font-size: 10px;
+}
+
+/* line 78, ../../../app/stylesheets/screen.scss */
+#artist_data .info .name {
+  font-size: 14px !important;
+  margin-bottom: 4px;
+}
+
+/* line 83, ../../../app/stylesheets/screen.scss */
+#artist_data .image {
+  float: left;
+  padding: 3px;
+  padding-right: 10px;
 }

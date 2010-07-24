@@ -6,7 +6,7 @@ class ArtistController < ApplicationController
   # FEATURE:: throw an error when artist not found
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
-  # FEATURE:: add amazon adds/link to lastfm profile
+  # FEATURE:: add amazon links
   
   # FEATURE:: site styles
   # FEATURE:: inline application helpers
@@ -16,6 +16,8 @@ class ArtistController < ApplicationController
     # list all artists
   # CHORE:: queue jobs at set time interval instead of now
   # CHORE:: on timeout, schedule update in 1 day
+  # CHORE:: make all urls overridable
+  # CHORE:: make artist_data support multiple artists
   
   layout 'base.html.haml'
   
@@ -43,7 +45,10 @@ class ArtistController < ApplicationController
         if @artist.similar_data.nil? || @artist.shark_code.nil?
           @artist.fetch
         end
-        @code << @artist.get_data[:code]
+        artist_data = @artist.get_data
+        @code << artist_data[:code]
+        artist = JSON.parse(artist_data[:data])
+        @data = {:name => artist['artist']['name'], :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       end
     end
     # respond to request after all artists have been iterated
