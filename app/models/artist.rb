@@ -13,9 +13,13 @@ class Artist < ActiveRecord::Base
     ### UPDATE SONGS
     code = song_data = ""
     JSON.parse(data)['toptracks']['track'].each do |track|
-      track_name = to_URL(strip_song(track['name']))
-      song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + self.name + "?format=json").read)
-      code << song_data['SongID'].to_s + "," unless song_data == []
+      begin
+        track_name = to_URL(strip_song(track['name']))
+        song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + self.name + "?format=json").read)
+        code << song_data['SongID'].to_s + "," unless song_data == []
+        rescue Timeout::Error
+          next
+      end
     end
     self.shark_code = code
 

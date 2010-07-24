@@ -15,9 +15,7 @@ class ArtistController < ApplicationController
     # Delayed Jobs interface
     # list all artists
   # CHORE:: queue jobs at set time interval instead of now
-  # CHORE:: fix case sensativity
-  
-  # BUG:: TIMEOUT ERRORS
+  # CHORE:: on timeout, schedule update in 1 day
   
   layout 'base.html.haml'
   
