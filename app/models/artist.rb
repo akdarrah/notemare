@@ -6,16 +6,16 @@ class Artist < ActiveRecord::Base
   def fetch
     ### UPDATE META DATA
     self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json" if self.source_url.nil?
-    self.data = open(self.source_url).read
+    data = open(self.source_url).read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
 
     ### UPDATE SONGS
     code = song_data = ""
-    JSON.parse(self.data)['toptracks']['track'].each do |track|
+    JSON.parse(data)['toptracks']['track'].each do |track|
       track_name = to_URL(strip_song(track['name']))
       song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + self.name + "?format=json").read)
-      code << song_data['SongID'].to_s + ","
+      code << song_data['SongID'].to_s + "," unless song_data == []
     end
     self.shark_code = code
 

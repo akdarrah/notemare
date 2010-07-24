@@ -15,6 +15,9 @@ class ArtistController < ApplicationController
     # Delayed Jobs interface
     # list all artists
   # CHORE:: queue jobs at set time interval instead of now
+  # CHORE:: fix case sensativity
+  
+  # BUG:: TIMEOUT ERRORS
   
   layout 'base.html.haml'
   
@@ -39,7 +42,7 @@ class ArtistController < ApplicationController
       unless lookup_data == []
         @artist = Artist.find_or_create_by_name(to_URL(lookup_data['ArtistName']))
         @artist.expired?
-        if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
+        if @artist.similar_data.nil? || @artist.shark_code.nil?
           @artist.fetch
         end
         @code << @artist.get_data[:code]

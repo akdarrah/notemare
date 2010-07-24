@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100617022326) do
+ActiveRecord::Schema.define(:version => 20100722031320) do
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -18,7 +18,21 @@ ActiveRecord::Schema.define(:version => 20100617022326) do
     t.string   "shark_code"
     t.integer  "refer_count",   :default => 0
     t.integer  "fetch_count",   :default => 0
-    t.datetime "last_fetch_at", :default => '2010-07-21 01:35:46'
+    t.datetime "last_fetch_at", :default => '2010-07-24 12:46:38'
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source_url"
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
