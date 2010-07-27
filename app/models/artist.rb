@@ -5,8 +5,8 @@ class Artist < ActiveRecord::Base
   # updates artist data using lastFM and grooveshark
   def fetch
     ### UPDATE META DATA
-    self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json" if self.source_url.nil?
-    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM + "&format=json").read
+    self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + to_URL(self.to_lastFM) + "&format=json" if self.source_url.nil?
+    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + to_URL(self.to_lastFM) + "&format=json").read
     data = open(self.source_url).read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
@@ -25,7 +25,7 @@ class Artist < ActiveRecord::Base
     self.shark_code = code
 
     ### UPDATE SIMILAR ARTISTS
-    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.name + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
+    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + to_URL(self.name) + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
     save
   end
   
