@@ -39,7 +39,7 @@ class ArtistController < ApplicationController
       unless lookup_data == []
         @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
         @artist.expired?
-        if @artist.similar_data.nil? || @artist.shark_code.nil?
+        if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
           @artist.fetch
         end
         artist_data = @artist.get_data
