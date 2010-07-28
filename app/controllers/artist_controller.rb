@@ -15,6 +15,7 @@ class ArtistController < ApplicationController
   # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
   # CHORE:: make get similar artists a background job to execute later if not requested
+  # CHORE:: make to_url a string method
 
 
   layout 'base.html.haml'
