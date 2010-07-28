@@ -6,7 +6,6 @@ class ArtistController < ApplicationController
   # FEATURE:: throw an error when artist not found
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
-  # FEATURE:: add amazon links
   
   # FEATURE:: site styles
   # FEATURE:: inline application helpers
@@ -18,7 +17,13 @@ class ArtistController < ApplicationController
   # CHORE:: on timeout, schedule update in 1 day
   # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
-  
+  # CHORE:: make get similar artists a background job to execute later if not requested
+  # CHORE:: make artist_info links open in new window
+  # 
+  # 
+  # 
+  # IMPROVE AMAZON CODES
+
   layout 'base.html.haml'
   
   def index
@@ -48,7 +53,7 @@ class ArtistController < ApplicationController
         artist_data = @artist.get_data
         @code << artist_data[:code]
         artist = JSON.parse(artist_data[:data])
-        @data = {:name => artist['artist']['name'], :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        @data = {:name => artist['artist']['name'], :amazon_link_name => to_URL(artist['artist']['name']), :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       end
     end
     # respond to request after all artists have been iterated
