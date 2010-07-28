@@ -141,12 +141,17 @@ a:hover {
 }
 
 /* line 78, ../../../app/stylesheets/screen.scss */
+#artist_data .amazon_link {
+  margin-top: 3px;
+}
+
+/* line 82, ../../../app/stylesheets/screen.scss */
 #artist_data .info .name {
   font-size: 14px !important;
   margin-bottom: 4px;
 }
 
-/* line 83, ../../../app/stylesheets/screen.scss */
+/* line 87, ../../../app/stylesheets/screen.scss */
 #artist_data .image {
   float: left;
   padding: 3px;

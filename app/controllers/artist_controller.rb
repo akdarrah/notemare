@@ -18,11 +18,7 @@ class ArtistController < ApplicationController
   # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
   # CHORE:: make get similar artists a background job to execute later if not requested
-  # CHORE:: make artist_info links open in new window
-  # 
-  # 
-  # 
-  # IMPROVE AMAZON CODES
+
 
   layout 'base.html.haml'
   
