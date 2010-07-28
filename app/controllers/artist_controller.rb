@@ -6,13 +6,10 @@ class ArtistController < ApplicationController
   # FEATURE:: throw an error when artist not found
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
-  
-  # FEATURE:: site styles
   # FEATURE:: inline application helpers
   # FEATURE:: add admin section
     # Audit artist form
     # Delayed Jobs interface
-    # list all artists
   # CHORE:: queue jobs at set time interval instead of now
   # CHORE:: on timeout, schedule update in 1 day
   # CHORE:: make all urls overridable
