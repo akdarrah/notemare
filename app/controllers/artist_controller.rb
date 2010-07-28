@@ -15,8 +15,6 @@ class ArtistController < ApplicationController
   # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
   # CHORE:: make get similar artists a background job to execute later if not requested
-  # CHORE:: make to_url a string method
-
 
   layout 'base.html.haml'
   
@@ -36,10 +34,10 @@ class ArtistController < ApplicationController
     # loop through each artist given and compile a string of all shark codes
     artists.each do |instance|
       # make a query to tinysong using the given artist name
-      lookup_data = JSON.parse(open("http://tinysong.com/b/" + to_URL(instance) + "?format=json").read)
+      lookup_data = JSON.parse(open("http://tinysong.com/b/" + instance.to_url + "?format=json").read)
       # if lookup_data is an empty set you do not have a valid artist
       unless lookup_data == []
-        @artist = Artist.find_or_create_by_name(to_URL(lookup_data['ArtistName']))
+        @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
         @artist.expired?
         if @artist.similar_data.nil? || @artist.shark_code.nil?
           @artist.fetch
@@ -47,7 +45,7 @@ class ArtistController < ApplicationController
         artist_data = @artist.get_data
         @code << artist_data[:code]
         artist = JSON.parse(artist_data[:data])
-        @data = {:name => artist['artist']['name'], :amazon_link_name => to_URL(artist['artist']['name']), :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        @data = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       end
     end
     # respond to request after all artists have been iterated
@@ -59,12 +57,6 @@ class ArtistController < ApplicationController
   
   private
 
-  # add + symbols in place of spaces to format a song or artist
-  # name for making a query to tinysong
-  def to_URL(str)
-    return str.to_s.gsub(/ /, "+")
-  end
-  
   # accepts a string of grooveshark ids seperated by ',' symbols
   # returns a string of the same grooveshark ids in a different order
   def randomize(code)

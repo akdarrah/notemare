@@ -5,8 +5,8 @@ class Artist < ActiveRecord::Base
   # updates artist data using lastFM and grooveshark
   def fetch
     ### UPDATE META DATA
-    self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + to_URL(self.to_lastFM) + "&format=json" if self.source_url.nil?
-    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + to_URL(self.to_lastFM) + "&format=json").read
+    self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json" if self.source_url.nil?
+    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json").read
     data = open(self.source_url).read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
@@ -15,7 +15,7 @@ class Artist < ActiveRecord::Base
     code = song_data = ""
     JSON.parse(data)['toptracks']['track'].each do |track|
       begin
-        track_name = to_URL(strip_song(track['name']))
+        track_name = strip_song(track['name']).to_url
         song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + self.name + "?format=json").read)
         code << song_data['SongID'].to_s + "," unless song_data == []
         rescue Timeout::Error
@@ -25,7 +25,7 @@ class Artist < ActiveRecord::Base
     self.shark_code = code
 
     ### UPDATE SIMILAR ARTISTS
-    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + to_URL(self.name) + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
+    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.name.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
     save
   end
   
@@ -55,10 +55,4 @@ protected
     return name.to_s.gsub(/[[:punct:]]/, '')
   end
 
-  # add + symbols in place of spaces to format a song or artist
-  # name for making a query to tinysong
-  def to_URL(str)
-    return str.to_s.gsub(/ /, "+")
-  end
-  
 end
