@@ -48,6 +48,5 @@ Rails::Initializer.run do |config|
 end
 
 require 'delayed_job'
-require 'authlogic'
 require 'open-uri'
 require 'json'
