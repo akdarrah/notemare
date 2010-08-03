@@ -15,7 +15,7 @@ class Artist < ActiveRecord::Base
     code = song_data = ""
     JSON.parse(data)['toptracks']['track'].each do |track|
       begin
-        track_name = strip_song(track['name']).to_url
+        track_name = strip_symbols(track['name']).to_url
         song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + self.name + "?format=json").read)
         code << song_data['SongID'].to_s + "," unless song_data == []
         rescue Timeout::Error
@@ -26,6 +26,10 @@ class Artist < ActiveRecord::Base
 
     ### UPDATE SIMILAR ARTISTS
     self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.name.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
+    # JSON.parse(self.similar_data)['similarartists']['artist'].each do |sim_artist|
+    #   puts strip_symbols(sim_artist['name']).to_url
+    # end
+    
     save
   end
   
@@ -38,7 +42,7 @@ class Artist < ActiveRecord::Base
   
   # Queues ArtistWorker Delayed Job if data is more than 1 week old
   def expired?
-    Delayed::Job.enqueue ArtistWorker.new(self.id) if (Time.now - self.last_fetch_at) > 1.week
+    Delayed::Job.enqueue(ArtistWorker.new(self.id), 0, new_fetch_time) if (Time.now - self.last_fetch_at) > 1.week
   end
 
 protected
@@ -51,8 +55,16 @@ protected
   end
   
   # strip all symbols from a song title when doing tinysong lookups
-  def strip_song(name)
+  def strip_symbols(name)
     return name.to_s.gsub(/[[:punct:]]/, '')
+  end
+  
+  # Artist::fetch takes about 4 minutes if tinysong is slow
+  # schedule Artist fetches 5 minutes apart to be safe
+  def new_fetch_time
+    last_delayed_job = Delayed::Job.last
+    return Time.now if last_delayed_job.nil? || last_delayed_job.run_at < (Time.now - 5.minutes)
+    last_delayed_job.run_at + 5.minutes
   end
 
 end

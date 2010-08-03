@@ -10,11 +10,13 @@ class ArtistController < ApplicationController
   # FEATURE:: add admin section
     # Audit artist form
     # Delayed Jobs interface
-  # CHORE:: queue jobs at set time interval instead of now
   # CHORE:: on timeout, schedule update in 1 day
   # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
   # CHORE:: make get similar artists a background job to execute later if not requested
+  # 
+  # when queueing new similar artists, do the tinysong lookups in a background job for faster loads
+  # also add a flag to artist model so we know if we got its similar artists or not
 
   layout 'base.html.haml'
   
