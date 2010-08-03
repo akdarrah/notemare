@@ -15,7 +15,6 @@ $(document).ready(function() {
     // disable form input
     $("#artist_submit").hide();
     $("#loader").show();
-    $("#artist_name").attr("disabled", true);
     return false;
   });
 
