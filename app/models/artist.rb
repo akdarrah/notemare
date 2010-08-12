@@ -5,9 +5,8 @@ class Artist < ActiveRecord::Base
   # updates artist data using lastFM and grooveshark
   def fetch
     ### UPDATE META DATA
-    self.source_url = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json" if self.source_url.nil?
     self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json").read
-    data = open(self.source_url).read
+    data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json").read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
 
@@ -25,11 +24,10 @@ class Artist < ActiveRecord::Base
     self.shark_code = code
 
     ### UPDATE SIMILAR ARTISTS
-    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.name.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read
-    # JSON.parse(self.similar_data)['similarartists']['artist'].each do |sim_artist|
-    #   puts strip_symbols(sim_artist['name']).to_url
-    # end
+    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.name.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read unless self.similar_data.present?
+    Delayed::Job.enqueue(SimilarArtistWorker.new(self.id), 1, Time.now) if self.queue_similar?
     
+    self.dequeue
     save
   end
   
@@ -40,9 +38,37 @@ class Artist < ActiveRecord::Base
     return {:data => self.data, :code => self.shark_code, :similar => self.similar_data}
   end
   
-  # Queues ArtistWorker Delayed Job if data is more than 1 week old
-  def expired?
-    Delayed::Job.enqueue(ArtistWorker.new(self.id), 0, new_fetch_time) if (Time.now - self.last_fetch_at) > 1.week
+  # queues all similar artists to be loaded
+  def queue_similar_artists
+    JSON.parse(self.similar_data)['similarartists']['artist'].each do |sim_artist|
+      begin
+        lookup_data = JSON.parse(open("http://tinysong.com/b/" + strip_symbols(sim_artist['name']).to_url + "?format=json").read)
+        unless lookup_data == []
+          queued_artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
+          queued_artist.enqueue
+        end
+        rescue URI::InvalidURIError
+          next
+      end
+    end
+    self.queue_similar = false
+    save
+  end
+  
+  # queues an artist to be updated based on several conditions
+  def enqueue(override = false)
+    if self.job_id.nil? && !(self.last_fetch_at.present? && (Time.now - self.last_fetch_at) < 1.week) && !override
+      Delayed::Job.enqueue(ArtistWorker.new(self.id), 0, Time.now)
+      self.job_id = Delayed::Job.last.id
+      save
+    end    
+  end
+  
+  # since Delayed::Job is not an activerecord model
+  # return an artists delayed job record
+  def job
+    return nil if self.job_id.nil?
+    Delayed::Job.find(self.job_id)
   end
 
 protected
@@ -54,17 +80,15 @@ protected
     return part.join('+').titlecase
   end
   
+  # removes artist from update queue
+  def dequeue
+    self.job.destroy if self.job.present?
+    self.job_id = nil
+  end
+  
   # strip all symbols from a song title when doing tinysong lookups
   def strip_symbols(name)
     return name.to_s.gsub(/[[:punct:]]/, '')
-  end
-  
-  # Artist::fetch takes about 4 minutes if tinysong is slow
-  # schedule Artist fetches 5 minutes apart to be safe
-  def new_fetch_time
-    last_delayed_job = Delayed::Job.last
-    return Time.now if last_delayed_job.nil? || last_delayed_job.run_at < (Time.now - 5.minutes)
-    last_delayed_job.run_at + 5.minutes
   end
 
 end

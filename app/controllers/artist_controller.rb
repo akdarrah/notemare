@@ -3,21 +3,18 @@ class ArtistController < ApplicationController
   # FEATURE:: make update time dynamic
   # FEATURE:: add similar artists feature
   # FEATURE:: make sure songs belong to artist
-  # FEATURE:: throw an error when artist not found
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers
   # FEATURE:: add admin section
     # Audit artist form
     # Delayed Jobs interface
-  # CHORE:: on timeout, schedule update in 1 day
   # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
-  # CHORE:: make get similar artists a background job to execute later if not requested
-  # 
-  # when queueing new similar artists, do the tinysong lookups in a background job for faster loads
-  # also add a flag to artist model so we know if we got its similar artists or not
-
+  # CHORE:: handle errors better
+    # CHORE:: on timeout, schedule update in 1 day
+    # FEATURE:: throw an error when artist not found
+  
   layout 'base.html.haml'
   
   def index
@@ -40,10 +37,8 @@ class ArtistController < ApplicationController
       # if lookup_data is an empty set you do not have a valid artist
       unless lookup_data == []
         @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
-        @artist.expired?
-        if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
-          @artist.fetch
-        end
+        @artist.enqueue(@artist.shark_code.present? ? false : true)
+        @artist.fetch if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
         artist_data = @artist.get_data
         @code << artist_data[:code]
         artist = JSON.parse(artist_data[:data])

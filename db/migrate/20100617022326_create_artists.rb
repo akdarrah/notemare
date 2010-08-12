@@ -7,7 +7,7 @@ class CreateArtists < ActiveRecord::Migration
       t.string :shark_code
       t.integer :refer_count, :default => 0
       t.integer :fetch_count, :default => 0
-      t.timestamp :last_fetch_at, :default => Time.now
+      t.timestamp :last_fetch_at, :default => nil
       t.timestamps
     end
   end
