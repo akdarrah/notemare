@@ -9,11 +9,12 @@ class ArtistController < ApplicationController
   # FEATURE:: add admin section
     # Audit artist form
     # Delayed Jobs interface
-  # CHORE:: make all urls overridable
   # CHORE:: make artist_data support multiple artists
   # CHORE:: handle errors better
     # CHORE:: on timeout, schedule update in 1 day
     # FEATURE:: throw an error when artist not found
+  # CHORE:: hard coded lastfm/tinysong urls -> constants
+  # CHORE:: fix artist info not being set properly (pictures no appearing)
   
   layout 'base.html.haml'
   

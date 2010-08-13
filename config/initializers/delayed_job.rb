@@ -9,6 +9,4 @@ Delayed::Worker.backend = :active_record
 # end
 
 # Start delayed jobs
-if RAILS_ENV != 'development'
-  "cd #{Rails.root} && script/worker start"
-end
+"cd #{Rails.root} && script/worker start"
