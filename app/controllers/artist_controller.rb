@@ -1,7 +1,7 @@
 class ArtistController < ApplicationController
   
   # FEATURE:: make update time dynamic
-  # FEATURE:: add similar artists feature
+  # FEATURE:: add similar artists feature ?
   # FEATURE:: make sure songs belong to artist
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
@@ -15,6 +15,7 @@ class ArtistController < ApplicationController
     # FEATURE:: throw an error when artist not found
   # CHORE:: hard coded lastfm/tinysong urls -> constants
   # CHORE:: fix artist info not being set properly (pictures no appearing)
+  # CHORE:: backup database!!!
   
   layout 'base.html.haml'
   

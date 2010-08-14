@@ -24,7 +24,7 @@ class Artist < ActiveRecord::Base
     self.shark_code = code
 
     ### UPDATE SIMILAR ARTISTS
-    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.name.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read unless self.similar_data.present?
+    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.to_lastFM.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read unless self.similar_data.present?
     Delayed::Job.enqueue(SimilarArtistWorker.new(self.id), 1, Time.now) if self.queue_similar?
     
     self.dequeue
