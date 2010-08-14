@@ -9,4 +9,4 @@ Delayed::Worker.backend = :active_record
 # end
 
 # Start delayed jobs
-"cd #{Rails.root} && script/worker start"
+system "cd #{Rails.root} && script/worker start"
