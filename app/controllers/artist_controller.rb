@@ -15,7 +15,7 @@ class ArtistController < ApplicationController
     # FEATURE:: throw an error when artist not found
   # CHORE:: hard coded lastfm/tinysong urls -> constants
   # CHORE:: fix artist info not being set properly (pictures no appearing)
-  # CHORE:: backup database!!!
+  # CHORE:: automate database backups
   
   layout 'base.html.haml'
   
