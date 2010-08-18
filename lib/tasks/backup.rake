@@ -12,7 +12,7 @@ require 'find'
       backup_file = File.join(backup_folder, "#{RAILS_ENV}_dump.sql.gz")
       File.makedirs(backup_folder)
       db_config = ActiveRecord::Base.configurations[RAILS_ENV]
-      sh "mysqldump -u #{db_config['username'].to_s} #{'-p' if db_config['password']}#{db_config['password'].to_s} --opt #{db_config['database']} | gzip -c > #{backup_file}"
+      sh "mysqldump -u #{db_config['username'].to_s} #{'-p ' if db_config['password']}#{db_config['password'].to_s} --opt #{db_config['database']} | gzip -c > #{backup_file}"
       dir = Dir.new(backup_base)
       all_backups = dir.entries[2..-1].sort.reverse
       puts "Created backup: #{backup_file}"     
