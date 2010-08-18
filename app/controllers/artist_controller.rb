@@ -13,7 +13,6 @@ class ArtistController < ApplicationController
   # CHORE:: handle errors better
     # CHORE:: on timeout, schedule update in 1 day
     # FEATURE:: throw an error when artist not found
-  # CHORE:: hard coded lastfm/tinysong urls -> constants
   # CHORE:: fix artist info not being set properly (pictures no appearing)
   # CHORE:: automate database backups
   
@@ -35,7 +34,7 @@ class ArtistController < ApplicationController
     # loop through each artist given and compile a string of all shark codes
     artists.each do |instance|
       # make a query to tinysong using the given artist name
-      lookup_data = JSON.parse(open("http://tinysong.com/b/" + instance.to_url + "?format=json").read)
+      lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{instance.to_url}?format=json").read)
       # if lookup_data is an empty set you do not have a valid artist
       unless lookup_data == []
         @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)

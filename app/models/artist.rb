@@ -1,12 +1,16 @@
 class Artist < ActiveRecord::Base
   validates_presence_of :name
   validates_numericality_of :refer_count, :fetch_count
+  
+  LAST_FM_API_KEY = "25c1d3e948b977d8893a92467d647a21"
+  LAST_FM_BASE_URL = "http://ws.audioscrobbler.com/2.0/?"
+  TINYSONG_BASE_URL = "http://tinysong.com/b/"
 
   # updates artist data using lastFM and grooveshark
   def fetch
     ### UPDATE META DATA
-    self.data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json").read
-    data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&api_key=25c1d3e948b977d8893a92467d647a21&artist=" + self.to_lastFM.to_url + "&format=json").read
+    self.data = open("#{LAST_FM_BASE_URL}method=artist.getInfo&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read
+    data = open("#{LAST_FM_BASE_URL}method=artist.getTopTracks&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
 
@@ -15,7 +19,7 @@ class Artist < ActiveRecord::Base
     JSON.parse(data)['toptracks']['track'].each do |track|
       begin
         track_name = strip_symbols(track['name']).to_url
-        song_data = JSON.parse(open("http://tinysong.com/b/" + track_name + "+" + self.name + "?format=json").read)
+        song_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{track_name}+#{self.name}?format=json").read)
         code << song_data['SongID'].to_s + "," unless song_data == []
         rescue Timeout::Error
           next
@@ -24,7 +28,7 @@ class Artist < ActiveRecord::Base
     self.shark_code = code
 
     ### UPDATE SIMILAR ARTISTS
-    self.similar_data = open("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + self.to_lastFM.to_url + "&api_key=25c1d3e948b977d8893a92467d647a21&format=json").read unless self.similar_data.present?
+    self.similar_data = open("#{LAST_FM_BASE_URL}method=artist.getsimilar&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read unless self.similar_data.present?
     Delayed::Job.enqueue(SimilarArtistWorker.new(self.id), 1, Time.now) if self.queue_similar?
     
     self.dequeue
@@ -42,7 +46,7 @@ class Artist < ActiveRecord::Base
   def queue_similar_artists
     JSON.parse(self.similar_data)['similarartists']['artist'].each do |sim_artist|
       begin
-        lookup_data = JSON.parse(open("http://tinysong.com/b/" + strip_symbols(sim_artist['name']).to_url + "?format=json").read)
+        lookup_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{strip_symbols(sim_artist['name']).to_url}?format=json").read)
         unless lookup_data == []
           queued_artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
           queued_artist.enqueue
