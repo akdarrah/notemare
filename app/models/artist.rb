@@ -5,6 +5,12 @@ class Artist < ActiveRecord::Base
   LAST_FM_API_KEY = "25c1d3e948b977d8893a92467d647a21"
   LAST_FM_BASE_URL = "http://ws.audioscrobbler.com/2.0/?"
   TINYSONG_BASE_URL = "http://tinysong.com/b/"
+  
+  named_scope :find_by_name_like, Proc.new { |query|
+    {
+      :conditions => ["name like ?","%#{query}%"]
+    } if query.present?
+  }
 
   # updates artist data using lastFM and grooveshark
   def fetch

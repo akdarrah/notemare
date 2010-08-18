@@ -7,14 +7,14 @@ class ArtistController < ApplicationController
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers
   # FEATURE:: add admin section
-    # Audit artist form
+    # Audit artist form (sphinx or DB LIKE)
     # Delayed Jobs interface
-  # CHORE:: make artist_data support multiple artists
-  # CHORE:: handle errors better
-    # CHORE:: on timeout, schedule update in 1 day
-    # FEATURE:: throw an error when artist not found
-  # CHORE:: fix artist info not being set properly (pictures no appearing)
+  # FEATURE:: throw an error when artist not found
   # CHORE:: automate database backups
+  # BUG:: n ruby processes are created during import
+  # CHORE:: allow user to manipulate artist preview
+  
+  # gunzip < [backupfile.sql.gz] | mysql -u [uname] -p[pass] [dbname]
   
   layout 'base.html.haml'
   
@@ -25,6 +25,7 @@ class ArtistController < ApplicationController
     # get all artists user has entered
     artists = params[:artist][:name].split(',')
     @code = ""
+    @data = {}
     
     # determine whether to randomize the results or not
     # if user inserted a ! into input, remove it
@@ -43,7 +44,7 @@ class ArtistController < ApplicationController
         artist_data = @artist.get_data
         @code << artist_data[:code]
         artist = JSON.parse(artist_data[:data])
-        @data = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       end
     end
     # respond to request after all artists have been iterated

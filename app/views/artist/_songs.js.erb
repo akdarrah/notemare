@@ -1,12 +1,29 @@
+// function to scroll through artists
+function scroll() {
+  var next = $(".active").next();
+  if($(next).length == 0){next = $("#artist_data").find(".artist:first");}
+  $(".active").hide();
+  $(next).fadeIn('slow');
+  $(".active").removeClass("active");
+  $(next).addClass("active");
+  clearTimeout(handle);
+  handle = setTimeout(function() { scroll();}, 20000);
+}
+
 // inject the player into the page
 $("#player").html("<object width=\"400\" height=\"400\"> <param value=\"http://listen.grooveshark.com/widget.swf\" name=\"movie\"> <param value=\"window\" name=\"wmode\"> <param value=\"always\" name=\"allowScriptAccess\"> <param value=\"hostname=cowbell.grooveshark.com&amp;songIDs=<%= @code %>&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0\" name=\"flashvars\"> <embed width=\"400\" height=\"400\" wmode=\"window\" allowscriptaccess=\"always\" flashvars=\"hostname=cowbell.grooveshark.com&amp;songIDs=<%= @code %>&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0\" type=\"application/x-shockwave-flash\" src=\"http://listen.grooveshark.com/widget.swf\"></object>");
+
 // inject the artist data into data panel
 $("#artist_data").hide();
-$("#artist_data .image").html("<img src=\"<%= @data[:image] %>\">");
-$("#artist_data .info .name").html("<%= @data[:name] %>");
-$("#artist_data .info .lastFM").html("<a target=\"_blank\" href=\"<%= @data[:lastFM] %>\"><%= @data[:lastFM] %></a>");
-$("#artist_data .info .amazon_link").html("<a target=\"_blank\" href=\"http://www.amazon.com/gp/search?ie=UTF8&keywords=<%= @data[:amazon_link_name] %>&tag=notemare-20&index=digital-music&linkCode=ur2&camp=1789&creative=390957\">Download From Amazon</a>")
-setTimeout(function() { $("#artist_data").fadeIn('slow'); }, 1000);
+$("#artist_data").html("");
+<% @data.each do |artist, data| %>
+  $("#artist_data").append("<div class=\"artist\"><div class=\"image\"><img src=\"<%= data[:image] %>\"></div><div class=\"info\"><div class=\"name\"><%= data[:name] %></div><div class=\"lastFM\"><a target=\"_blank\" href=\"<%= data[:lastFM] %>\"><%= data[:lastFM] %></a></div><div class=\"amazon_link\"><a target=\"_blank\" href=\"http://www.amazon.com/gp/search?ie=UTF8&keywords=<%= data[:amazon_link_name] %>&tag=notemare-20&index=digital-music&linkCode=ur2&camp=1789&creative=390957\">Download From Amazon</a></div></div></div>");
+<% end %>
+$("#artist_data").find(".artist").each(function() { $(this).hide(); })
+$("#artist_data").find(".artist:first").addClass("active").show();
+setTimeout(function() { $("#artist_data").fadeIn('slow');}, 1000);
+handle = setTimeout(function() { scroll();}, 20000);
+
 // re-enable form input
 $("#loader").hide();
 $("#artist_submit").show();
