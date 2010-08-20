@@ -1,13 +1,15 @@
 // function to scroll through artists
 function scroll() {
   var next = $(".active").next();
-  if($(next).length == 0){next = $("#artist_data").find(".artist:first");}
-  $(".active").hide();
-  $(next).fadeIn('slow');
-  $(".active").removeClass("active");
-  $(next).addClass("active");
-  clearTimeout(handle);
-  handle = setTimeout(function() { scroll();}, 20000);
+  if($("#artist_data").find(".artist").length <= 1){}
+  else {
+    if($(next).length == 0){next = $("#artist_data").find(".artist:first");}
+    $(".active").hide();
+    $(next).fadeIn('slow');
+    $(".active").removeClass("active");
+    $(next).addClass("active");
+    setTimeout(function() { scroll();}, 20000);
+  }
 }
 
 // inject the player into the page
@@ -22,7 +24,7 @@ $("#artist_data").html("");
 $("#artist_data").find(".artist").each(function() { $(this).hide(); })
 $("#artist_data").find(".artist:first").addClass("active").show();
 setTimeout(function() { $("#artist_data").fadeIn('slow');}, 1000);
-handle = setTimeout(function() { scroll();}, 20000);
+setTimeout(function() { scroll();}, 20000);
 
 // re-enable form input
 $("#loader").hide();
