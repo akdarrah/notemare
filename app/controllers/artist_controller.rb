@@ -6,16 +6,11 @@ class ArtistController < ApplicationController
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers
-  # FEATURE:: add admin section
-    # Audit artist form (sphinx or DB LIKE)
-    # Delayed Jobs interface
   # FEATURE:: throw an error when artist not found
   # CHORE:: automate database backups
   # BUG:: n ruby processes are created during import
   # CHORE:: allow user to manipulate artist preview
-  
-  # gunzip < [backupfile.sql.gz] | mysql -u [uname] -p[pass] [dbname]
-  
+    
   layout 'base.html.haml'
   
   def index
