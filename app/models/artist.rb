@@ -32,7 +32,14 @@ class Artist < ActiveRecord::Base
     self.similar_data = open("#{LAST_FM_BASE_URL}method=artist.getsimilar&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read unless self.similar_data.present?
     Delayed::Job.enqueue(SimilarArtistWorker.new(self.id), 1, Time.now) if self.queue_similar?
     
-    self.dequeue
+    # if delayed job fails enough times the job will be nil and id will not be found
+    # if this is the case, set the job_id to nil
+    begin
+      self.dequeue
+      rescue ActiveRecord::RecordNotFound
+        self.job_id = nil
+    end
+
     save
   end
   
