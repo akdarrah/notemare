@@ -5,6 +5,7 @@ class Artist < ActiveRecord::Base
   LAST_FM_API_KEY = "25c1d3e948b977d8893a92467d647a21"
   LAST_FM_BASE_URL = "http://ws.audioscrobbler.com/2.0/?"
   TINYSONG_BASE_URL = "http://tinysong.com/b/"
+  UPDATE_TIME = 4.weeks
 
   # updates artist data using lastFM and grooveshark
   def fetch
@@ -61,7 +62,7 @@ class Artist < ActiveRecord::Base
   
   # queues an artist to be updated based on several conditions
   def enqueue(override = false)
-    if self.job_id.nil? && !(self.last_fetch_at.present? && (Time.now - self.last_fetch_at) < 1.week) && !override
+    if self.job_id.nil? && !(self.last_fetch_at.present? && (Time.now - self.last_fetch_at) < UPDATE_TIME) && !override
       Delayed::Job.enqueue(ArtistWorker.new(self.id), 0, Time.now)
       self.job_id = Delayed::Job.last.id
       save
