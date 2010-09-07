@@ -1,7 +1,6 @@
 class ArtistController < ApplicationController
   
   # FEATURE:: make update time dynamic
-  # FEATURE:: add similar artists feature ?
   # FEATURE:: make sure songs belong to artist
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
@@ -10,7 +9,7 @@ class ArtistController < ApplicationController
   # CHORE:: automate database backups
   # BUG:: n ruby processes are created during import
   # CHORE:: allow user to manipulate artist preview
-    
+  
   layout 'base.html.haml'
   
   def index
@@ -22,11 +21,33 @@ class ArtistController < ApplicationController
     @code = ""
     @data = {}
     
-    # determine whether to randomize the results or not
-    # if user inserted a ! into input, remove it
-    rand = true if artists[0][-1,1] == '!'
-    artists[0] = artists[0].split("!")[0] if rand
-    
+    if artists.length == 1
+      # determine whether to randomize the results or not
+      # if user inserted a ! into input, remove it
+      rand = true if artists[0][-1,1] == '!'
+      artists[0] = artists[0].split("!")[0] if rand
+      
+      # determine whether to include similar artists
+      # if user inserted a ? into input, remove it
+      sim = true if artists[0][-1,1] == '?'
+      artists[0] = artists[0].split("?")[0] if sim
+      
+      # if sim is true, we need to append similar artists to artists array before looping
+      # this requires an additional tinysong and Artist lookup to do
+      # THIS SUCKS -> REFACTOR IF POSSIBLE
+      if sim == true
+        lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{artists[0].to_url}?format=json").read)
+        unless lookup_data == []
+          @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
+          @artist.enqueue(@artist.shark_code.present? ? false : true)
+          @artist.fetch if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
+          JSON.parse(@artist.similar_data)['similarartists']['artist'][0..2].each do |sa|
+            artists << sa['name']
+          end
+        end
+      end
+    end
+            
     # loop through each artist given and compile a string of all shark codes
     artists.each do |instance|
       # make a query to tinysong using the given artist name
