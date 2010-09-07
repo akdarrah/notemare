@@ -19,7 +19,7 @@ $("#player").html("<object width=\"400\" height=\"400\"> <param value=\"http://l
 $("#artist_data").hide();
 $("#artist_data").html("");
 <% @data.each do |artist, data| %>
-  $("#artist_data").append("<div class=\"artist\"><% unless data[:image].blank? %><div class=\"image\"><img src=\"<%= data[:image] %>\"><% end %></div><div class=\"info\"><div class=\"name\"><%= data[:name] %></div><div class=\"lastFM\"><a target=\"_blank\" href=\"<%= data[:lastFM] %>\"><%= data[:lastFM] %></a></div><div class=\"amazon_link\"><a target=\"_blank\" href=\"http://www.amazon.com/gp/search?ie=UTF8&keywords=<%= data[:amazon_link_name] %>&tag=notemare-20&index=digital-music&linkCode=ur2&camp=1789&creative=390957\">Download From Amazon</a></div></div></div>");
+  $("#artist_data").append("<div class=\"artist\"><% unless data[:image].blank? %><div class=\"image\"><img src=\"<%= data[:image] %>\"></div><% end %><div class=\"info\"><div class=\"name\"><%= data[:name] %></div><div class=\"lastFM\"><a target=\"_blank\" href=\"<%= data[:lastFM] %>\"><%= data[:lastFM] %></a></div><div class=\"amazon_link\"><a target=\"_blank\" href=\"http://www.amazon.com/gp/search?ie=UTF8&keywords=<%= data[:amazon_link_name] %>&tag=notemare-20&index=digital-music&linkCode=ur2&camp=1789&creative=390957\">Download From Amazon</a></div></div></div>");
 <% end %>
 $("#artist_data").find(".artist").each(function() { $(this).hide(); })
 $("#artist_data").find(".artist:first").addClass("active").show();
