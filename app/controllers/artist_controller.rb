@@ -1,13 +1,11 @@
 class ArtistController < ApplicationController
   
   # FEATURE:: make update time dynamic
-  # FEATURE:: make sure songs belong to artist
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers
   # FEATURE:: throw an error when artist not found
   # CHORE:: automate database backups
-  # BUG:: n ruby processes are created during import
   # CHORE:: allow user to manipulate artist preview
   
   layout 'base.html.haml'
@@ -36,9 +34,10 @@ class ArtistController < ApplicationController
       # this requires an additional tinysong and Artist lookup to do
       # THIS SUCKS -> REFACTOR IF POSSIBLE
       if sim == true
-        lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{artists[0].to_url}?format=json").read)
+        @artist = Artist.find_by_name(artists[0])
+        lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{artists[0].to_url}?format=json").read) if @artist.nil?
         unless lookup_data == []
-          @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
+          @artist ||= Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
           @artist.enqueue(@artist.shark_code.present? ? false : true)
           @artist.fetch if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
           JSON.parse(@artist.similar_data)['similarartists']['artist'][0..2].each do |sa|
@@ -50,11 +49,11 @@ class ArtistController < ApplicationController
             
     # loop through each artist given and compile a string of all shark codes
     artists.each do |instance|
-      # make a query to tinysong using the given artist name
-      lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{instance.to_url}?format=json").read)
+      @artist = Artist.find_by_name(instance)
+      lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{instance.to_url}?format=json").read) if @artist.nil?
       # if lookup_data is an empty set you do not have a valid artist
       unless lookup_data == []
-        @artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
+        @artist ||= Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
         @artist.enqueue(@artist.shark_code.present? ? false : true)
         @artist.fetch if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
         artist_data = @artist.get_data
