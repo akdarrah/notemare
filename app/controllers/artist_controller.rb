@@ -1,12 +1,12 @@
 class ArtistController < ApplicationController
   
-  # FEATURE:: make update time dynamic
+  # CURRENT
+  # ##################################################
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers (front page content)
   # FEATURE:: throw an error when artist not found
   # CHORE:: automate database backups
-  # CHORE:: allow user to manipulate artist preview
 
   # FOR PRODUCTION DEPLOY
   # ##################################################
@@ -14,6 +14,12 @@ class ArtistController < ApplicationController
   # 2. submit to facebook and tweet
   # 3. submit to reddit (and later digg)
   
+  # POST DEPLOY
+  # ##################################################
+  # FEATURE:: make artist preview better
+  # FEATURE:: make update time dynamic
+  # FEATURE:: email summary
+    
   layout 'base.html.haml'
   
   def index
@@ -40,13 +46,13 @@ class ArtistController < ApplicationController
       # this requires an additional tinysong and Artist lookup to do
       # THIS SUCKS -> REFACTOR IF POSSIBLE
       if sim == true
-        @artist = Artist.find_by_name(artists[0])
-        lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{artists[0].to_url}?format=json").read) if @artist.nil?
+        base_artist = Artist.find_by_name(artists[0].to_url)
+        lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{artists[0].to_url}?format=json").read) if base_artist.nil?
         unless lookup_data == []
-          @artist ||= Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
-          @artist.enqueue(@artist.shark_code.present? ? false : true)
-          @artist.fetch if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
-          JSON.parse(@artist.similar_data)['similarartists']['artist'][0..2].each do |sa|
+          base_artist ||= Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
+          base_artist.enqueue(base_artist.shark_code.present? ? false : true)
+          base_artist.fetch if base_artist.data.nil? || base_artist.similar_data.nil? || base_artist.shark_code.nil?
+          JSON.parse(base_artist.similar_data)['similarartists']['artist'][0..2].each do |sa|
             artists << sa['name']
           end
         end
@@ -55,7 +61,7 @@ class ArtistController < ApplicationController
             
     # loop through each artist given and compile a string of all shark codes
     artists.each do |instance|
-      @artist = Artist.find_by_name(instance)
+      @artist = Artist.find_by_name(instance.to_url)
       lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}#{instance.to_url}?format=json").read) if @artist.nil?
       # if lookup_data is an empty set you do not have a valid artist
       unless lookup_data == []
