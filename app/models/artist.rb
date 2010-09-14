@@ -56,7 +56,7 @@ class Artist < ActiveRecord::Base
   def queue_similar_artists
     JSON.parse(self.similar_data)['similarartists']['artist'].each do |sim_artist|
       begin
-        lookup_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{strip_symbols(sim_artist['name']).to_url}?format=json").read)
+        lookup_data = JSON.parse(open("#{TINYSONG_BASE_URL}artist:#{strip_symbols(sim_artist['name']).to_url}?format=json").read)
         unless lookup_data == []
           queued_artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
           queued_artist.enqueue
