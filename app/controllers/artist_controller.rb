@@ -6,7 +6,6 @@ class ArtistController < ApplicationController
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers (front page content)
   # FEATURE:: throw an error when artist not found
-  # CHORE:: automate database backups
 
   # FOR PRODUCTION DEPLOY
   # ##################################################
@@ -19,6 +18,7 @@ class ArtistController < ApplicationController
   # FEATURE:: make artist preview better
   # FEATURE:: make update time dynamic
   # FEATURE:: email summary
+  # CHORE:: automate database backups
     
   layout 'base.html.haml'
   
