@@ -6,7 +6,6 @@ class ArtistController < ApplicationController
   # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers (front page content)
   # FEATURE:: throw an error when artist not found
-  # FEATURE:: add alternate name to artist to correct profile errors
   # CHORE:: automate database backups
 
   # FOR PRODUCTION DEPLOY

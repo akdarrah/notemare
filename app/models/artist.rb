@@ -10,8 +10,8 @@ class Artist < ActiveRecord::Base
   # updates artist data using lastFM and grooveshark
   def fetch
     ### UPDATE META DATA
-    self.data = open("#{LAST_FM_BASE_URL}method=artist.getInfo&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read
-    data = open("#{LAST_FM_BASE_URL}method=artist.getTopTracks&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read
+    self.data = open("#{LAST_FM_BASE_URL}method=artist.getInfo&api_key=#{LAST_FM_API_KEY}&artist=#{self.name.titlecase.to_url}&format=json").read
+    data = open("#{LAST_FM_BASE_URL}method=artist.getTopTracks&api_key=#{LAST_FM_API_KEY}&artist=#{self.name.titlecase.to_url}&format=json").read
     self.fetch_count = self.fetch_count + 1
     self.last_fetch_at = Time.now
 
@@ -31,7 +31,7 @@ class Artist < ActiveRecord::Base
     self.shark_code = code
 
     ### UPDATE SIMILAR ARTISTS
-    self.similar_data = open("#{LAST_FM_BASE_URL}method=artist.getsimilar&api_key=#{LAST_FM_API_KEY}&artist=#{self.to_lastFM.to_url}&format=json").read unless self.similar_data.present?
+    self.similar_data = open("#{LAST_FM_BASE_URL}method=artist.getsimilar&api_key=#{LAST_FM_API_KEY}&artist=#{self.name.titlecase.to_url}&format=json").read unless self.similar_data.present?
     Delayed::Job.enqueue(SimilarArtistWorker.new(self.id), 1, Time.now) if self.queue_similar?
     
     # if delayed job fails enough times the job will be nil and id will not be found
@@ -87,13 +87,6 @@ class Artist < ActiveRecord::Base
 
 protected
 
-  # returns artist name formatted for lastFM
-  def to_lastFM
-    part = self.name.split('+')
-    part[0] = "" if part[0].downcase == "the"
-    return part.join('+').titlecase
-  end
-  
   # removes artist from update queue
   def dequeue
     self.job.destroy if self.job.present?
