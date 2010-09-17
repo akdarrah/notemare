@@ -20,7 +20,7 @@ class Artist < ActiveRecord::Base
     JSON.parse(data)['toptracks']['track'].each do |track|
       begin
         track_name = strip_symbols(track['name']).to_url
-        song_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{track_name.to_url}+#{self.name}?format=json").read)
+        song_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{track_name.to_url}+artist:#{self.name}?format=json").read)
         code << song_data['SongID'].to_s + "," unless song_data == []
         rescue URI::InvalidURIError
           next
