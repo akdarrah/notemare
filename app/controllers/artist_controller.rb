@@ -3,21 +3,20 @@ class ArtistController < ApplicationController
   # CURRENT
   # ##################################################
   # FEATURE:: add 'Mix' model for saving playlists
-  # FEATURE:: add embed code into site and share links
   # FEATURE:: inline application helpers (front page content)
-  # FEATURE:: throw an error when artist not found
+  # FEATURE:: throw an error on parsing error
 
   # FOR PRODUCTION DEPLOY
   # ##################################################
   # 1. write meta data and submit to search engines
-  # 2. submit to facebook and tweet
-  # 3. submit to reddit (and later digg)
+  # 2. reapply for itunes
+  # 3. submit to facebook
+  # 4. submit to social media
   
   # POST DEPLOY
   # ##################################################
   # FEATURE:: make artist preview better
   # FEATURE:: make update time dynamic
-  # FEATURE:: email summary
   # CHORE:: automate database backups
     
   layout 'base.html.haml'
