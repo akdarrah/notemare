@@ -25,24 +25,24 @@
 
 development:
   adapter: mysql
-  database: min_dev
+  database: notemare_dev
   username: root
-  password: 
+  password: 7fusjsm3j2$#(8&Unafj42*JEKN
   host: localhost
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 test:
   adapter: mysql
-  database: min_test
+  database: notemare_test
   username: root
-  password: 
+  password: 7fusjsm3j2$#(8&Unafj42*JEKN
   host: localhost
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql
-  database: min_prod
+  database: notemare_prod
   username: root
-  password: prodpass1!
+  password: 7fusjsm3j2$#(8&Unafj42*JEKN
   host: localhost
   socket: /var/run/mysqld/mysqld.sock
