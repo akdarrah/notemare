@@ -52,4 +52,4 @@ require 'open-uri'
 require 'json'
 
 # Start delayed jobs
-system "cd #{Rails.root} && script/worker start"
+system "cd #{Rails.root} && RAILS_ENV=production script/worker start" if RAILS_ENV == 'production'
