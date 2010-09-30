@@ -7,6 +7,3 @@ Delayed::Worker.backend = :active_record
 #   Delayed::Job.const_set("MAX_ATTEMPTS", 5)
 #   Delayed::Job.const_set("MAX_RUN_TIME", 5.minutes)
 # end
-
-# Start delayed jobs
-system "cd #{Rails.root} && script/worker start"
