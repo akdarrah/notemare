@@ -50,3 +50,6 @@ end
 require 'delayed_job'
 require 'open-uri'
 require 'json'
+
+# Start delayed jobs
+system "cd #{Rails.root} && script/worker start"

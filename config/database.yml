@@ -41,8 +41,8 @@ test:
 
 production:
   adapter: mysql
-  database: min_prod
+  database: notemare_prod
   username: root
-  password: prodpass1!
+  password: 7fusjsm3j2$#(8&Unafj42*JEKN
   host: localhost
   socket: /var/run/mysqld/mysqld.sock
