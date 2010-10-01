@@ -7,6 +7,7 @@ gem "formtastic"
 gem "authlogic"
 gem "json"
 gem "delayed_job"
+gem "hoptoad_notifier"
 
 group :development do
   gem "mongrel"

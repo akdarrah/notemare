@@ -6,8 +6,6 @@ class ArtistController < ApplicationController
   # FEATURE:: inline application helpers (front page content)
   # FEATURE:: throw an error on parsing error
   
-  # CHORE:: add hoptoad, feedback tab
-
   # FOR PRODUCTION DEPLOY
   # ##################################################
   # 1. submit to search engines

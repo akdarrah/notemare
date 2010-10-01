@@ -13,6 +13,8 @@ Rails::Initializer.run do |config|
   config.gem 'compass', :version => '>= 0.10.0'
   config.gem 'haml', :version => '>=3.0.0'
   config.gem 'formtastic'
+  config.gem 'hoptoad_notifier'
+  
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
