@@ -5,12 +5,10 @@
 
 @import "compass/reset";
 
-html, body {
+html {
   height: 100%;
   margin: 0;
   padding: 0;
-  /** GET RID OF THIS WHEN POSSIBLE */
-  overflow: hidden;
 }
 
 body {

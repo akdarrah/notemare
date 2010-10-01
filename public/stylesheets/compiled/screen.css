@@ -63,69 +63,68 @@ a img {
 }
 
 /* line 8, ../../../app/stylesheets/screen.scss */
-html, body {
+html {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
-/* line 15, ../../../app/stylesheets/screen.scss */
+/* line 14, ../../../app/stylesheets/screen.scss */
 body {
   font-family: 'lucida grande', lucida, tahoma, helvetica, arial, sans-serif;
   font-size: 13px;
 }
 
-/* line 20, ../../../app/stylesheets/screen.scss */
+/* line 19, ../../../app/stylesheets/screen.scss */
 a, a:visited {
   color: #A60;
   text-decoration: none;
 }
 
-/* line 25, ../../../app/stylesheets/screen.scss */
+/* line 24, ../../../app/stylesheets/screen.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 29, ../../../app/stylesheets/screen.scss */
+/* line 28, ../../../app/stylesheets/screen.scss */
 #wrapper {
   width: 500px;
   margin: 0 auto;
 }
 
-/* line 34, ../../../app/stylesheets/screen.scss */
+/* line 33, ../../../app/stylesheets/screen.scss */
 #logo {
   margin: 50px auto 20px auto;
   width: 349px;
 }
 
 /** SEARCH FORM ********/
-/* line 41, ../../../app/stylesheets/screen.scss */
+/* line 40, ../../../app/stylesheets/screen.scss */
 #wrapper form {
   width: 400px;
   margin: 5px 0 10px 53px;
 }
 
-/* line 46, ../../../app/stylesheets/screen.scss */
+/* line 45, ../../../app/stylesheets/screen.scss */
 #wrapper form .inputs {
   display: inline;
   margin-right: 2px;
 }
 
-/* line 52, ../../../app/stylesheets/screen.scss */
+/* line 51, ../../../app/stylesheets/screen.scss */
 #wrapper form .buttons {
   display: inline;
 }
 
 /** PLAYER ************/
-/* line 58, ../../../app/stylesheets/screen.scss */
+/* line 57, ../../../app/stylesheets/screen.scss */
 #wrapper object {
   width: 400px;
   margin-left: 50px;
   padding: 2px;
 }
 
-/* line 64, ../../../app/stylesheets/screen.scss */
+/* line 63, ../../../app/stylesheets/screen.scss */
 #credits {
   width: 400px;
   margin-left: 55px;
@@ -135,31 +134,31 @@ a:hover {
 }
 
 /** ARTIST INFO ************/
-/* line 74, ../../../app/stylesheets/screen.scss */
+/* line 73, ../../../app/stylesheets/screen.scss */
 #artist_data {
   width: 400px;
   margin: 5px 46px 5px 0;
   float: right;
 }
 
-/* line 80, ../../../app/stylesheets/screen.scss */
+/* line 79, ../../../app/stylesheets/screen.scss */
 #artist_data .info {
   margin: 3px 3px 7px 3px;
   font-size: 10px;
 }
 
-/* line 85, ../../../app/stylesheets/screen.scss */
+/* line 84, ../../../app/stylesheets/screen.scss */
 #artist_data .amazon_link {
   margin-top: 3px;
 }
 
-/* line 89, ../../../app/stylesheets/screen.scss */
+/* line 88, ../../../app/stylesheets/screen.scss */
 #artist_data .info .name {
   font-size: 14px !important;
   margin-bottom: 4px;
 }
 
-/* line 94, ../../../app/stylesheets/screen.scss */
+/* line 93, ../../../app/stylesheets/screen.scss */
 #artist_data .image {
   float: left;
   padding: 3px;
