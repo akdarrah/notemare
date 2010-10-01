@@ -5,6 +5,10 @@
 
 @import "compass/reset";
 
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: 'lucida grande', lucida, tahoma, helvetica, arial, sans-serif;
   font-size: 13px;

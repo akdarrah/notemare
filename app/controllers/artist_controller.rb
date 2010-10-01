@@ -5,10 +5,12 @@ class ArtistController < ApplicationController
   # FEATURE:: add 'Mix' model for saving playlists
   # FEATURE:: inline application helpers (front page content)
   # FEATURE:: throw an error on parsing error
+  
+  # CHORE:: add hoptoad, feedback tab
 
   # FOR PRODUCTION DEPLOY
   # ##################################################
-  # 1. write meta data and submit to search engines
+  # 1. submit to search engines
   # 2. reapply for itunes
   # 3. submit to facebook
   # 4. submit to social media
