@@ -133,32 +133,45 @@ a:hover {
   float: left;
 }
 
-/** ARTIST INFO ************/
+/** PERMALINK ************/
 /* line 73, ../../../app/stylesheets/screen.scss */
+#page_url {
+  margin-left: 51px;
+  margin-bottom: 5px;
+  margin-top: 3px;
+  font-size: 10px;
+}
+/* line 79, ../../../app/stylesheets/screen.scss */
+#page_url input {
+  margin-left: 3px;
+}
+
+/** ARTIST INFO ************/
+/* line 86, ../../../app/stylesheets/screen.scss */
 #artist_data {
   width: 400px;
   margin: 5px 46px 5px 0;
   float: right;
 }
 
-/* line 79, ../../../app/stylesheets/screen.scss */
+/* line 92, ../../../app/stylesheets/screen.scss */
 #artist_data .info {
   margin: 3px 3px 7px 3px;
   font-size: 10px;
 }
 
-/* line 84, ../../../app/stylesheets/screen.scss */
+/* line 97, ../../../app/stylesheets/screen.scss */
 #artist_data .amazon_link {
   margin-top: 3px;
 }
 
-/* line 88, ../../../app/stylesheets/screen.scss */
+/* line 101, ../../../app/stylesheets/screen.scss */
 #artist_data .info .name {
   font-size: 14px !important;
   margin-bottom: 4px;
 }
 
-/* line 93, ../../../app/stylesheets/screen.scss */
+/* line 106, ../../../app/stylesheets/screen.scss */
 #artist_data .image {
   float: left;
   padding: 3px;

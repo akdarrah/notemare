@@ -23,11 +23,38 @@ class ArtistController < ApplicationController
   def index
   end
   
+  # if user enters site with a generated url
+  # basically just need to determine if they are looking up a mix or an artist
+  # then set all the needed data and render the page .. simple
+  def lookup
+    @code = ""
+    @data = {}
+    @artist = Artist.find_by_name(params[:id])
+    @mix = Mix.find(params[:id].to_i(36)) if @artist.nil?
+    
+    # set needed instance vars
+    @page_url = "http://notemare.com/#{params[:id]}"
+    if @artist.present?
+      @code = @artist.shark_code 
+      artist = JSON.parse(@artist.data)
+      @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+    else
+      @code = @mix.shark_code
+      @mix.artists.each do |artist|
+        artist = JSON.parse(artist.data)
+        @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+      end
+    end
+  end
+  
   def songs
     # get all artists user has entered
     artists = params[:artist][:name].split(',')
     @code = ""
     @data = {}
+    
+    # contains all artist objects in current request
+    current = []
     
     if artists.length == 1
       # determine whether to randomize the results or not
@@ -68,12 +95,24 @@ class ArtistController < ApplicationController
         @artist.fetch if @artist.data.nil? || @artist.similar_data.nil? || @artist.shark_code.nil?
         artist_data = @artist.get_data
         @code << artist_data[:code]
+        current << @artist
         artist = JSON.parse(artist_data[:data])
         @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       end
     end
+    
     # respond to request after all artists have been iterated
     @code = randomize(@code) if artists.length > 1 || rand
+    
+    # set @page_url to a returnable url address
+    if artists.length == 1
+      @page_url = "http://notemare.com/#{current[0].name}"
+    else
+      @mix = Mix.create(:shark_code => @code)
+      current.each{|inc| @mix.artists << inc}
+      @page_url = "http://notemare.com/#{@mix.id.to_s(36)}"
+    end
+    
     respond_to do |format|
       format.js { render :partial => 'songs.js.erb' }
     end

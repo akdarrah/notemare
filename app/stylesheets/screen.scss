@@ -68,6 +68,19 @@ a:hover {
   float: left;
 }
 
+/** PERMALINK ************/
+
+#page_url {
+  margin-left: 51px;
+  margin-bottom: 5px;
+  margin-top: 3px;
+  font-size: 10px;
+  
+  input {
+    margin-left: 3px;
+  }
+}
+
 /** ARTIST INFO ************/
 
 #artist_data {

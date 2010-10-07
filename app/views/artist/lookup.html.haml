@@ -1,0 +1,50 @@
+= render :partial => "search"
+
+:javascript
+  $(document).ready(function() {
+    function scroll() {
+      var next = $(".active").next();
+      if($("#artist_data").find(".artist").length <= 1){}
+      else {
+        if($(next).length == 0){next = $("#artist_data").find(".artist:first");}
+        $(".active").hide();
+        $(next).fadeIn('slow');
+        $(".active").removeClass("active");
+        $(next).addClass("active");
+        var handler = setTimeout(function() { scroll();}, 20000);
+      }
+    }
+    $("#artist_data").find(".artist").each(function() { $(this).hide(); })
+    $("#artist_data").find(".artist:first").addClass("active").show();
+    setTimeout(function() { $("#artist_data").fadeIn('slow');}, 1000);
+    clearTimeout(handler);
+    var handler = setTimeout(function() { scroll();}, 20000);
+  });
+  
+#player
+  %object{:width => "400", :height => "400"}
+    %param{:value => "http://listen.grooveshark.com/widget.swf", :name => "movie"}
+    %param{:value => "window", :name => "wmode"}
+    %param{:value => "always", :name => "allowScriptAccess"}
+    %param{:value => "hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0", :name => "flashvars"}
+    %embed{:width => "400", :height => "400", :wmode => "window", :allowscriptaccess => "always", :flashvars => "hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0", :type => "application/x-shockwave-flash", :src => "http://listen.grooveshark.com/widget.swf"}
+
+#page_url
+  %label{:for => "page_link"}
+    Permalink
+  %input{:size => "45", :onmouseup => "this.select(); return false;", :id => "page_link", :value => @page_url}
+
+#artist_data
+  - @data.each do |artist, data|
+    .artist
+      - unless data[:image].blank?
+        .image
+          %img{:src => data[:image]}
+      .info
+        .name= data[:name]
+        .lastFM
+          %a{:target => "_blank", :href => data[:lastFM]} 
+            = data[:lastFM]
+        .amazon_link
+          %a{:target => "_blank", :href => "http://www.amazon.com/gp/search?ie=UTF8&keywords=#{data[:amazon_link_name]}&tag=notemare-20&index=digital-music&linkCode=ur2&camp=1789&creative=390957"}
+            Download From Amazon

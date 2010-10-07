@@ -2,6 +2,8 @@ class Artist < ActiveRecord::Base
   validates_presence_of :name
   validates_numericality_of :refer_count, :fetch_count
   
+  has_and_belongs_to_many :mixes
+  
   LAST_FM_API_KEY = "25c1d3e948b977d8893a92467d647a21"
   LAST_FM_BASE_URL = "http://ws.audioscrobbler.com/2.0/?"
   TINYSONG_BASE_URL = "http://tinysong.com/b/"

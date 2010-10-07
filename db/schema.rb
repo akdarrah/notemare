@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100804004626) do
+ActiveRecord::Schema.define(:version => 20101007021248) do
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(:version => 20100804004626) do
     t.integer  "job_id"
   end
 
+  add_index "artists", ["name"], :name => "index_artists_on_name"
+
+  create_table "artists_mixes", :id => false, :force => true do |t|
+    t.integer "artist_id"
+    t.integer "mix_id"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -34,6 +41,12 @@ ActiveRecord::Schema.define(:version => 20100804004626) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mixes", :force => true do |t|
+    t.string   "shark_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

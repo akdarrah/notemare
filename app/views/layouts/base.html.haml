@@ -7,6 +7,7 @@
     %meta{:name => "keywords", :content => "free music, listen to music, playlist, music playlist, online radio, free mp3, discover music, music, online music, music downloads, playlist generator"}
     %link{:rel => 'shortcut icon', :href => "images/favicon.ico", :type => "image/x-icon" }
     = javascript_include_tag "jquery", "application"
+    = yield :script
     = stylesheet_link_tag "compiled/screen", "compiled/print"
     /[if IE]
       = stylesheet_link_tag "compiled/ie"

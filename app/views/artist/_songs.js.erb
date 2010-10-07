@@ -21,6 +21,8 @@ $("#artist_data").html("");
 <% @data.each do |artist, data| %>
   $("#artist_data").append("<div class=\"artist\"><% unless data[:image].blank? %><div class=\"image\"><img src=\"<%= data[:image] %>\"></div><% end %><div class=\"info\"><div class=\"name\"><%= data[:name] %></div><div class=\"lastFM\"><a target=\"_blank\" href=\"<%= data[:lastFM] %>\"><%= data[:lastFM] %></a></div><div class=\"amazon_link\"><a target=\"_blank\" href=\"http://www.amazon.com/gp/search?ie=UTF8&keywords=<%= data[:amazon_link_name] %>&tag=notemare-20&index=digital-music&linkCode=ur2&camp=1789&creative=390957\">Download From Amazon</a></div></div></div>");
 <% end %>
+
+$("#page_url").html("<label for=\"page_link\">Permalink</label><input size=\"45\" onmouseup=\"this.select(); return false;\" id=\"page_link\" value=\"<%= @page_url %>\" />");
 $("#artist_data").find(".artist").each(function() { $(this).hide(); })
 $("#artist_data").find(".artist:first").addClass("active").show();
 setTimeout(function() { $("#artist_data").fadeIn('slow');}, 1000);
