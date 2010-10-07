@@ -8,10 +8,9 @@ class ArtistController < ApplicationController
   
   # FOR PRODUCTION DEPLOY
   # ##################################################
-  # 1. submit to search engines
-  # 2. reapply for itunes
-  # 3. submit to facebook
-  # 4. submit to social media
+  # 1. reapply for itunes
+  # 2. submit to facebook
+  # 3. submit to social media
   
   # POST DEPLOY
   # ##################################################
