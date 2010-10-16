@@ -133,45 +133,58 @@ a:hover {
   float: left;
 }
 
-/** PERMALINK ************/
+/** ERROR ************/
 /* line 73, ../../../app/stylesheets/screen.scss */
+#error_msg {
+  padding: 3px;
+  background: #F7CDD2;
+  color: #FA0C29;
+  width: 392px;
+  margin-left: 52px;
+  margin-bottom: 3px;
+  display: none;
+  text-align: center;
+}
+
+/** PERMALINK ************/
+/* line 87, ../../../app/stylesheets/screen.scss */
 #page_url {
   margin-left: 51px;
   margin-bottom: 5px;
   margin-top: 3px;
   font-size: 10px;
 }
-/* line 79, ../../../app/stylesheets/screen.scss */
+/* line 93, ../../../app/stylesheets/screen.scss */
 #page_url input {
   margin-left: 3px;
 }
 
 /** ARTIST INFO ************/
-/* line 86, ../../../app/stylesheets/screen.scss */
+/* line 100, ../../../app/stylesheets/screen.scss */
 #artist_data {
   width: 400px;
   margin: 5px 46px 5px 0;
   float: right;
 }
 
-/* line 92, ../../../app/stylesheets/screen.scss */
+/* line 106, ../../../app/stylesheets/screen.scss */
 #artist_data .info {
   margin: 3px 3px 7px 3px;
   font-size: 10px;
 }
 
-/* line 97, ../../../app/stylesheets/screen.scss */
+/* line 111, ../../../app/stylesheets/screen.scss */
 #artist_data .amazon_link {
   margin-top: 3px;
 }
 
-/* line 101, ../../../app/stylesheets/screen.scss */
+/* line 115, ../../../app/stylesheets/screen.scss */
 #artist_data .info .name {
   font-size: 14px !important;
   margin-bottom: 4px;
 }
 
-/* line 106, ../../../app/stylesheets/screen.scss */
+/* line 120, ../../../app/stylesheets/screen.scss */
 #artist_data .image {
   float: left;
   padding: 3px;

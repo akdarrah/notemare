@@ -5,6 +5,9 @@ $(document).ready(function() {
   // hide the loader gif image by default
   $("#loader").hide();
   
+  // reset errors
+  $("#error_msg").hide();
+  
   // hide artist_data panel
   $("#artist_data").hide();
   

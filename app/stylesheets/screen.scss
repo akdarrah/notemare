@@ -68,6 +68,20 @@ a:hover {
   float: left;
 }
 
+
+/** ERROR ************/
+#error_msg {
+  padding: 3px;
+  background: #F7CDD2;
+  color: #FA0C29;
+  width: 392px;
+  margin-left: 52px;
+  margin-bottom: 3px;
+  display: none;
+  text-align: center;
+}
+
+
 /** PERMALINK ************/
 
 #page_url {

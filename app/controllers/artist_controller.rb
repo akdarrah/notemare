@@ -3,7 +3,6 @@ class ArtistController < ApplicationController
   # CURRENT
   # ##################################################
   # FEATURE:: inline application helpers (front page content)
-  # FEATURE:: throw an error on parsing error
   
   # FOR PRODUCTION DEPLOY
   # ##################################################
@@ -102,6 +101,16 @@ class ArtistController < ApplicationController
         artist = JSON.parse(artist_data[:data])
         @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       end
+    end
+    
+    # render an error message if there is no data in the code
+    # if no data in code, grooveshark player will be rendered with no songs just fine
+    # however, this will interup the current player. rendering this partial will not.
+    if @code.blank?
+      respond_to do |format|
+        format.js { render :partial => 'error.js.erb' }
+      end
+      return
     end
     
     # respond to request after all artists have been iterated
