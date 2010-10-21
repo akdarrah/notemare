@@ -98,33 +98,75 @@ a:hover {
   width: 349px;
 }
 
-/** SEARCH FORM ********/
+/** HELP ********/
 /* line 40, ../../../app/stylesheets/screen.scss */
+#helper {
+  display: inline;
+}
+
+/* line 44, ../../../app/stylesheets/screen.scss */
+#help {
+  border: 2px solid #3B7DA1;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  width: 400px;
+  margin: 10px auto;
+  clear: both;
+}
+/* line 52, ../../../app/stylesheets/screen.scss */
+#help .small {
+  font-size: 9px;
+  margin: 3px;
+}
+/* line 57, ../../../app/stylesheets/screen.scss */
+#help ul {
+  padding: 5px;
+  width: 300px;
+  margin: 0 auto;
+}
+/* line 61, ../../../app/stylesheets/screen.scss */
+#help ul li {
+  margin: 10px;
+}
+/* line 66, ../../../app/stylesheets/screen.scss */
+#help p {
+  margin-left: 3px;
+  margin-top: 5px;
+}
+/* line 71, ../../../app/stylesheets/screen.scss */
+#help h2 {
+  background: #3B7DA1;
+  font-size: 18px;
+  padding: 3px;
+}
+
+/** SEARCH FORM ********/
+/* line 81, ../../../app/stylesheets/screen.scss */
 #wrapper form {
   width: 400px;
   margin: 5px 0 10px 53px;
 }
 
-/* line 45, ../../../app/stylesheets/screen.scss */
+/* line 86, ../../../app/stylesheets/screen.scss */
 #wrapper form .inputs {
   display: inline;
   margin-right: 2px;
 }
 
-/* line 51, ../../../app/stylesheets/screen.scss */
+/* line 92, ../../../app/stylesheets/screen.scss */
 #wrapper form .buttons {
   display: inline;
 }
 
 /** PLAYER ************/
-/* line 57, ../../../app/stylesheets/screen.scss */
+/* line 98, ../../../app/stylesheets/screen.scss */
 #wrapper object {
   width: 400px;
   margin-left: 50px;
   padding: 2px;
 }
 
-/* line 63, ../../../app/stylesheets/screen.scss */
+/* line 104, ../../../app/stylesheets/screen.scss */
 #credits {
   width: 400px;
   margin-left: 55px;
@@ -134,7 +176,7 @@ a:hover {
 }
 
 /** ERROR ************/
-/* line 73, ../../../app/stylesheets/screen.scss */
+/* line 114, ../../../app/stylesheets/screen.scss */
 #error_msg {
   padding: 3px;
   background: #F7CDD2;
@@ -147,44 +189,45 @@ a:hover {
 }
 
 /** PERMALINK ************/
-/* line 87, ../../../app/stylesheets/screen.scss */
+/* line 128, ../../../app/stylesheets/screen.scss */
 #page_url {
   margin-left: 51px;
   margin-bottom: 5px;
   margin-top: 3px;
   font-size: 10px;
 }
-/* line 93, ../../../app/stylesheets/screen.scss */
+/* line 134, ../../../app/stylesheets/screen.scss */
 #page_url input {
   margin-left: 3px;
 }
 
 /** ARTIST INFO ************/
-/* line 100, ../../../app/stylesheets/screen.scss */
+/* line 141, ../../../app/stylesheets/screen.scss */
 #artist_data {
   width: 400px;
   margin: 5px 46px 5px 0;
   float: right;
+  clear: both;
 }
 
-/* line 106, ../../../app/stylesheets/screen.scss */
+/* line 148, ../../../app/stylesheets/screen.scss */
 #artist_data .info {
   margin: 3px 3px 7px 3px;
   font-size: 10px;
 }
 
-/* line 111, ../../../app/stylesheets/screen.scss */
+/* line 153, ../../../app/stylesheets/screen.scss */
 #artist_data .amazon_link {
   margin-top: 3px;
 }
 
-/* line 115, ../../../app/stylesheets/screen.scss */
+/* line 157, ../../../app/stylesheets/screen.scss */
 #artist_data .info .name {
   font-size: 14px !important;
   margin-bottom: 4px;
 }
 
-/* line 120, ../../../app/stylesheets/screen.scss */
+/* line 162, ../../../app/stylesheets/screen.scss */
 #artist_data .image {
   float: left;
   padding: 3px;

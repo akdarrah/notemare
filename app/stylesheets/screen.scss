@@ -35,6 +35,47 @@ a:hover {
   width: 349px;
 }
 
+/** HELP ********/
+
+#helper {
+  display: inline;
+}
+
+#help {
+  border: 2px solid #3B7DA1;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  width: 400px;
+  margin: 10px auto;
+  clear: both;
+  
+  .small {
+    font-size: 9px;
+    margin: 3px;
+  }
+  
+  ul {
+    padding: 5px;
+    width: 300px;
+    margin: 0 auto;
+    li {
+      margin: 10px;
+    }
+  }
+  
+  p {
+    margin-left: 3px;
+    margin-top: 5px;
+  }
+  
+  h2 {
+    background: #3B7DA1;
+    font-size: 18px;
+    padding: 3px;
+  }
+}
+
+
 /** SEARCH FORM ********/
 
 #wrapper form {
@@ -101,6 +142,7 @@ a:hover {
   width: 400px;
   margin: 5px 46px 5px 0;
   float: right;
+  clear: both;
 }
 
 #artist_data .info {

@@ -1,6 +1,11 @@
 jQuery.ajaxSetup({ 'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")} })
 
 $(document).ready(function() {
+
+  $("#helper").click(function() {
+    $("#help").fadeIn('slow');
+    return false;
+  });
   
   // hide the loader gif image by default
   $("#loader").hide();
