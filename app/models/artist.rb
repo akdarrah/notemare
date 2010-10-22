@@ -28,6 +28,11 @@ class Artist < ActiveRecord::Base
           next
         rescue Timeout::Error
           next
+        # this is a really weird exception, when viewing an artist that causes this such as revamp
+        # it's as if the data format has completely changes. since this only happens on rare occasions just skip the songs
+        # it seems this happens when a user searches for a track or album name instead of artist
+        rescue TypeError
+          next
       end
     end
     self.shark_code = code
