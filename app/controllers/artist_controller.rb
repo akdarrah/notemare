@@ -40,6 +40,12 @@ class ArtistController < ApplicationController
   end
   
   def songs
+
+    if params.present? && params[:artist].nil?
+      redirect_to root_url
+      return
+    end
+    
     # get all artists user has entered
     artists = params[:artist][:name].split(',')
     @code = ""
