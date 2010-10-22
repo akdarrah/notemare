@@ -54,4 +54,4 @@ require 'open-uri'
 require 'json'
 
 # Start delayed jobs
-system "cd /home/adam/notemare/ && RAILS_ENV=production script/worker start" if RAILS_ENV == 'production'
+# system "cd /home/adam/notemare/ && RAILS_ENV=production script/worker start" if RAILS_ENV == 'production'

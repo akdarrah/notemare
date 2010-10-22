@@ -1,15 +1,5 @@
 class ArtistController < ApplicationController
   
-  # CURRENT
-  # ##################################################
-  # FEATURE:: inline application helpers (front page content)
-  
-  # FOR PRODUCTION DEPLOY
-  # ##################################################
-  # 1. reapply for itunes
-  # 2. submit to facebook
-  # 3. submit to social media
-  
   # POST DEPLOY
   # ##################################################
   # FEATURE:: make artist preview better
