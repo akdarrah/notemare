@@ -1,6 +1,6 @@
 - semantic_form_for :artist do |formtastic|
   - formtastic.inputs do
-    = formtastic.input :name, :label => false, :require => true, :input_html => {:spellcheck => "false", :value => ""}
+    = formtastic.input :name, :label => false, :require => true, :input_html => {:spellcheck => "false", :value => (@search_bar_text.present? ? @search_bar_text : "")}
   - formtastic.buttons do
     = formtastic.commit_button :button_html => {:value => "GO"}
     #loader= image_tag('loader.gif')

@@ -19,21 +19,25 @@ class ArtistController < ApplicationController
     @data = {}
     @artist = Artist.find_by_name(params[:id])
     @mix = Mix.find_by_id(params[:id].to_i(36)) if @artist.nil?
+    @search_bar = ""
     
     # set needed instance vars
     if @artist.present? || @mix.present?
       @page_url = "http://notemare.com/#{params[:id]}"
       if @artist.present?
-        @code = @artist.shark_code 
+        @code = @artist.shark_code
+        @search_bar_text = @artist.name
         artist = JSON.parse(@artist.data)
         @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
       else
         @code = @mix.shark_code
+        @search_bar_text = @mix.artists.map(&:name).join(",")
         @mix.artists.each do |artist|
           artist = JSON.parse(artist.data)
           @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
         end
       end
+      @search_bar_text = @search_bar_text.gsub("+", " ").gsub(",", ", ")
     else
       redirect_to root_url
     end
