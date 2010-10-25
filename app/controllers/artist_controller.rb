@@ -72,7 +72,7 @@ class ArtistController < ApplicationController
       # if sim is true, we need to append similar artists to artists array before looping
       # this requires an additional tinysong and Artist lookup to do
       # THIS SUCKS -> REFACTOR IF POSSIBLE
-      if sim == true
+      if sim == true && artists[0].present?
         base_artist = Artist.find_by_name(artists[0].to_url)
         lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}artist:#{artists[0].to_url}?format=json").read) if base_artist.nil?
         unless lookup_data == []
