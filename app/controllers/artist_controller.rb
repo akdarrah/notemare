@@ -61,12 +61,12 @@ class ArtistController < ApplicationController
     if artists.length == 1
       # determine whether to randomize the results or not
       # if user inserted a ! into input, remove it
-      rand = true if artists[0][-1,1] == '!'
+      rand = true if artists[0].present? && artists[0][-1,1] == '!'
       artists[0] = artists[0].split("!")[0] if rand
       
       # determine whether to include similar artists
       # if user inserted a ? into input, remove it
-      sim = true if artists[0][-1,1] == '?'
+      sim = true if artists[0].present? && artists[0][-1,1] == '?'
       artists[0] = artists[0].split("?")[0] if sim
       
       # if sim is true, we need to append similar artists to artists array before looping
@@ -88,6 +88,7 @@ class ArtistController < ApplicationController
             
     # loop through each artist given and compile a string of all shark codes
     artists.each do |instance|
+      next if instance.nil?
       @artist = Artist.find_by_name(instance.to_url)
       lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}artist:#{instance.to_url}?format=json").read) if @artist.nil?
       # if lookup_data is an empty set you do not have a valid artist
