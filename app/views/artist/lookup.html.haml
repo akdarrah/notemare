@@ -23,17 +23,17 @@
   });
   
 #player
-  %object{:width => "400", :height => "400"}
-    %param{:value => "http://listen.grooveshark.com/widget.swf", :name => "movie"}
-    %param{:value => "window", :name => "wmode"}
-    %param{:value => "always", :name => "allowScriptAccess"}
-    %param{:value => "hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0", :name => "flashvars"}
-    %embed{:width => "400", :height => "400", :wmode => "window", :allowscriptaccess => "always", :flashvars => "hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0", :type => "application/x-shockwave-flash", :src => "http://listen.grooveshark.com/widget.swf"}
-
-#page_url
-  %label{:for => "page_link"}
-    Permalink
-  %input{:size => "45", :onmouseup => "this.select(); return false;", :id => "page_link", :value => @page_url}
+  = @player_code
+  
+#share_options
+  #page_url
+    %label{:for => "page_link"}
+      Permalink
+    %input{:size => "45", :onmouseup => "this.select(); return false;", :id => "page_link", :value => @page_url}
+  #embed_code
+    %label{:for => "embed_code"}
+      Embed
+    %input{:size => "45", :onmouseup => "this.select(); return false;", :id => "embed_code", :value => @player_code}
 
 #artist_data
   - @data.each do |artist, data|

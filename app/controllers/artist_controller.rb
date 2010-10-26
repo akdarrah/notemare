@@ -15,7 +15,7 @@ class ArtistController < ApplicationController
   # basically just need to determine if they are looking up a mix or an artist
   # then set all the needed data and render the page .. simple
   def lookup
-    @code = ""
+    @code = @player_code = ""
     @data = {}
     @artist = Artist.find_by_name(params[:id])
     @mix = Mix.find_by_id(params[:id].to_i(36)) if @artist.nil?
@@ -38,6 +38,7 @@ class ArtistController < ApplicationController
         end
       end
       @search_bar_text = @search_bar_text.gsub("+", " ").gsub(",", ", ")
+      @player_code = "<object width='400' height='400'><param value='http://listen.grooveshark.com/widget.swf' name='movie'><param value='window' name='wmode'><param value='always' name='allowScriptAccess'><param value='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' name='flashvars'><embed width='400' height='400' wmode='window' allowscriptaccess='always' flashvars='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' type='application/x-shockwave-flash' src='http://listen.grooveshark.com/widget.swf'></object>"
     else
       redirect_to root_url
     end
@@ -52,7 +53,7 @@ class ArtistController < ApplicationController
     
     # get all artists user has entered
     artists = params[:artist][:name].split(',')
-    @code = ""
+    @code = @player_code = ""
     @data = {}
     
     # contains all artist objects in current request
@@ -125,6 +126,8 @@ class ArtistController < ApplicationController
       current.each{|inc| @mix.artists << inc}
       @page_url = "http://notemare.com/#{@mix.id.to_s(36)}"
     end
+    
+    @player_code = "<object width='400' height='400'><param value='http://listen.grooveshark.com/widget.swf' name='movie'><param value='window' name='wmode'><param value='always' name='allowScriptAccess'><param value='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' name='flashvars'><embed width='400' height='400' wmode='window' allowscriptaccess='always' flashvars='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' type='application/x-shockwave-flash' src='http://listen.grooveshark.com/widget.swf'></object>"
     
     respond_to do |format|
       format.js { render :partial => 'songs.js.erb' }

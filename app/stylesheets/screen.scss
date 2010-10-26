@@ -125,16 +125,21 @@ a:hover {
 
 /** PERMALINK ************/
 
-#page_url {
+#share_options {
   margin-left: 51px;
   margin-bottom: 5px;
   margin-top: 3px;
   font-size: 10px;
   
+  #embed_code input {
+    margin-left: 21px;
+  }
+  
   input {
-    margin-left: 3px;
+    margin-left: 6px;
   }
 }
+
 
 /** ARTIST INFO ************/
 
