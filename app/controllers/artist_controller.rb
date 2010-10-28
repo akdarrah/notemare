@@ -27,8 +27,10 @@ class ArtistController < ApplicationController
       if @artist.present?
         @code = @artist.shark_code
         @search_bar_text = @artist.name
-        artist = JSON.parse(@artist.data)
-        @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        if @artist.data.present?
+          artist = JSON.parse(@artist.data)
+          @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        end
       else
         @code = @mix.shark_code
         @search_bar_text = @mix.artists.map(&:name).join(",")
@@ -100,8 +102,10 @@ class ArtistController < ApplicationController
         artist_data = @artist.get_data
         @code << artist_data[:code]
         current << @artist
-        artist = JSON.parse(artist_data[:data])
-        @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        if artist_data[:data].present?
+          artist = JSON.parse(artist_data[:data])
+          @data[artist['artist']['name']] = {:name => artist['artist']['name'], :amazon_link_name => artist['artist']['name'].to_url, :image => artist['artist']['image'][1]['#text'], :lastFM => artist['artist']['url']}
+        end
       end
     end
     
