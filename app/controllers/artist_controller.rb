@@ -1,11 +1,5 @@
 class ArtistController < ApplicationController
   
-  # POST DEPLOY
-  # ##################################################
-  # FEATURE:: make artist preview better
-  # FEATURE:: make update time dynamic
-  # CHORE:: automate database backups
-    
   layout 'base.html.haml'
   
   def index

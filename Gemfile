@@ -1,14 +1,18 @@
 source "http://rubygems.org"
-gem "rails", "2.3.5", :require => nil
+
+gem 'rails', '3.0.1'
+
 gem "mysql", "2.8.1"
-gem "haml", ">=2.2.5"
-gem "compass", ">=0.10.1"
+gem "haml"
+gem "compass"
 gem "formtastic"
-gem "authlogic"
+# gem "authlogic"
 gem "json"
 gem "delayed_job"
 gem "hoptoad_notifier"
 
-group :development do
-  gem "mongrel"
-end
+
+# gem 'sqlite3-ruby', :require => 'sqlite3'
+# 
+# To use debugger
+# gem 'ruby-debug'

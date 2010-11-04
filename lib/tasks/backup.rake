@@ -1,7 +1,8 @@
 # Backup script from http://blog.craigambrose.com/articles/2007/03/01/a-rake-task-for-database-backups -> http://pastie.org/95708
 # Backups are created in db/backup directory
 # Run the backups by calling rake db:backup
-require 'ftools'
+
+# require 'ftools'
 require 'find'
   namespace :db do  desc "Backup the database to a file. Options: DIR=base_dir RAILS_ENV=production MAX=20"
     task :backup => [:environment] do
