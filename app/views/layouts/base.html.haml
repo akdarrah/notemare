@@ -15,7 +15,7 @@
     = render :partial => "layouts/google.html.haml"
   %body
     #wrapper
-      #logo= link_to image_tag('banner.png'), "http://notemare.com/Halloween+2010"
+      #logo= link_to image_tag('banner.png'), root_url
       = yield
       = render :partial => "layouts/help.html.haml"
       #credits
