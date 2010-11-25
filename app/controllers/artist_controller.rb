@@ -34,7 +34,7 @@ class ArtistController < ApplicationController
         end
       end
       @search_bar_text = @search_bar_text.gsub("+", " ").gsub(",", ", ")
-      @player_code = "<object width='400' height='400'><param value='http://listen.grooveshark.com/widget.swf' name='movie'><param value='window' name='wmode'><param value='always' name='allowScriptAccess'><param value='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' name='flashvars'><embed width='400' height='400' wmode='window' allowscriptaccess='always' flashvars='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' type='application/x-shockwave-flash' src='http://listen.grooveshark.com/widget.swf'></object>"
+      @player_code = "<object width='400' height='400'><param value='http://listen.grooveshark.com/widget.swf' name='movie'><param value='window' name='wmode'><param value='always' name='allowScriptAccess'><param value='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' name='flashvars'><embed width='400' height='400' wmode='window' allowscriptaccess='always' flashvars='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' type='application/x-shockwave-flash' src='http://listen.grooveshark.com/widget.swf'></object>".html_safe
     else
       redirect_to root_url
     end
@@ -125,7 +125,7 @@ class ArtistController < ApplicationController
       @page_url = "http://notemare.com/#{@mix.id.to_s(36)}"
     end
     
-    @player_code = "<object width='400' height='400'><param value='http://listen.grooveshark.com/widget.swf' name='movie'><param value='window' name='wmode'><param value='always' name='allowScriptAccess'><param value='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' name='flashvars'><embed width='400' height='400' wmode='window' allowscriptaccess='always' flashvars='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' type='application/x-shockwave-flash' src='http://listen.grooveshark.com/widget.swf'></object>"
+    @player_code = "<object width='400' height='400'><param value='http://listen.grooveshark.com/widget.swf' name='movie'><param value='window' name='wmode'><param value='always' name='allowScriptAccess'><param value='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' name='flashvars'><embed width='400' height='400' wmode='window' allowscriptaccess='always' flashvars='hostname=cowbell.grooveshark.com&amp;songIDs=#{@code}&amp;style=metal&amp;bbg=000000&amp;bt=FFFFFF&amp;bfg=666666&amp;p=0' type='application/x-shockwave-flash' src='http://listen.grooveshark.com/widget.swf'></object>".html_safe
     
     respond_to do |format|
       format.js { render :partial => 'songs.js.erb' }
