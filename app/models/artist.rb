@@ -39,7 +39,7 @@ class Artist < ActiveRecord::Base
 
     ### UPDATE SIMILAR ARTISTS
     self.similar_data = open("#{LAST_FM_BASE_URL}method=artist.getsimilar&api_key=#{LAST_FM_API_KEY}&artist=#{self.name.titlecase.to_url}&format=json").read unless self.similar_data.present?
-    Delayed::Job.enqueue(SimilarArtistWorker.new(self.id), 1, Time.now) if self.queue_similar?
+    self.queue_similar_artists
     
     # if delayed job fails enough times the job will be nil and id will not be found
     # if this is the case, set the job_id to nil
@@ -51,6 +51,7 @@ class Artist < ActiveRecord::Base
 
     save
   end
+  Artist.handle_asynchronously :fetch, :priority => 0
   
   # returns all needed model data for page
   def get_data
@@ -75,11 +76,12 @@ class Artist < ActiveRecord::Base
     self.queue_similar = false
     save
   end
+  Artist.handle_asynchronously :queue_similar_artists, :priority => 1
   
   # queues an artist to be updated based on several conditions
   def enqueue(override = false)
     if self.job_id.nil? && !(self.last_fetch_at.present? && (Time.now - self.last_fetch_at) < UPDATE_TIME) && !override
-      Delayed::Job.enqueue(ArtistWorker.new(self.id), 0, Time.now)
+      self.fetch
       self.job_id = Delayed::Job.last.id
       save
     end    
