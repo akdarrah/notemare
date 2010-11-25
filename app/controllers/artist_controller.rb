@@ -71,7 +71,7 @@ class ArtistController < ApplicationController
       # THIS SUCKS -> REFACTOR IF POSSIBLE
       if sim == true && artists[0].present?
         base_artist = Artist.find_by_name(artists[0].to_url)
-        lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}artist:#{artists[0].to_url}?format=json").read) if base_artist.nil?
+        lookup_data = JSON.parse(open(URI.encode("#{Artist::TINYSONG_BASE_URL}artist:#{artists[0].to_url}?format=json")).read) if base_artist.nil?
         unless lookup_data == []
           base_artist ||= Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
           base_artist.enqueue(base_artist.shark_code.present? ? false : true)
@@ -87,7 +87,7 @@ class ArtistController < ApplicationController
     artists.each do |instance|
       next if instance.nil?
       @artist = Artist.find_by_name(instance.to_url)
-      lookup_data = JSON.parse(open("#{Artist::TINYSONG_BASE_URL}artist:#{instance.to_url}?format=json").read) if @artist.nil?
+      lookup_data = JSON.parse(open(URI.encode("#{Artist::TINYSONG_BASE_URL}artist:#{instance.to_url}?format=json")).read) if @artist.nil?
       # if lookup_data is an empty set you do not have a valid artist
       unless lookup_data == []
         @artist ||= Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
