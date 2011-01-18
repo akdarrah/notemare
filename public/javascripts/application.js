@@ -3,7 +3,15 @@ jQuery.ajaxSetup({ 'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "
 $(document).ready(function() {
 
   $("#helper").click(function() {
-    $("#help").fadeIn('slow');
+    if($("#help").hasClass('active') == true){
+      // hide the helper box
+      $("#help").fadeOut('fast');
+      $("#help").removeClass('active');
+    } else {
+      // show the helper box
+      $("#help").fadeIn('slow');
+      $("#help").addClass('active');
+    }
     return false;
   });
   

@@ -15,6 +15,7 @@ function scroll() {
 // fadeout elements
 $("#error_msg").fadeOut('slow');
 $("#help").fadeOut('slow');
+$("#help").removeClass('active');
 
 // inject the player into the page
 $("#player").html("<%= @player_code %>");
