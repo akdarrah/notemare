@@ -1,3 +1,11 @@
 == Min
 
+TODO::
 
+fix most popular artists
+customize meta tags per artist
+change color of help thing (make this better)
+remove feedback tab (this thing sucks)
+fix stylesheet meta info
+
+fix delayed jobs to refresh existing artists
