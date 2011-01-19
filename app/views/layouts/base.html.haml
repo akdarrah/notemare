@@ -8,7 +8,8 @@
     %link{:rel => 'shortcut icon', :href => "images/favicon.ico", :type => "image/x-icon" }
     = javascript_include_tag "jquery", "application"
     = yield :script
-    = stylesheet_link_tag "compiled/screen", "compiled/print"
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if IE]
       = stylesheet_link_tag "compiled/ie"
     %title Notemare - Instant Playlist Generator
