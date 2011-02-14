@@ -7,7 +7,7 @@ class Artist < ActiveRecord::Base
   LAST_FM_API_KEY = "25c1d3e948b977d8893a92467d647a21"
   LAST_FM_BASE_URL = "http://ws.audioscrobbler.com/2.0/?"
   TINYSONG_BASE_URL = "http://tinysong.com/b/"
-  UPDATE_TIME = 3.days
+  UPDATE_TIME = 5.days
 
   # updates artist data using lastFM and grooveshark
   def fetch
