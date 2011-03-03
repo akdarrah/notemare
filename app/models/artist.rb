@@ -7,6 +7,7 @@ class Artist < ActiveRecord::Base
   LAST_FM_API_KEY = "25c1d3e948b977d8893a92467d647a21"
   LAST_FM_BASE_URL = "http://ws.audioscrobbler.com/2.0/?"
   TINYSONG_BASE_URL = "http://tinysong.com/b/"
+  TINYSONG_API_KEY = "7129eed2c6aec41fc18a279f9136f404"
   UPDATE_TIME = 5.days
 
   # updates artist data using lastFM and grooveshark
@@ -22,7 +23,7 @@ class Artist < ActiveRecord::Base
     JSON.parse(data)['toptracks']['track'].each do |track|
       begin
         track_name = strip_symbols(track['name']).to_url
-        song_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{track_name.to_url}+artist:#{self.name}?format=json").read)
+        song_data = JSON.parse(open("#{TINYSONG_BASE_URL}#{track_name.to_url}+artist:#{self.name}?format=json&key=#{TINYSONG_API_KEY}").read)
         code << song_data['SongID'].to_s + "," unless song_data == []
         rescue URI::InvalidURIError
           next
@@ -63,7 +64,7 @@ class Artist < ActiveRecord::Base
   def queue_similar_artists
     JSON.parse(self.similar_data)['similarartists']['artist'].each do |sim_artist|
       begin
-        lookup_data = JSON.parse(open("#{TINYSONG_BASE_URL}artist:#{strip_symbols(sim_artist['name']).to_url}?format=json").read)
+        lookup_data = JSON.parse(open("#{TINYSONG_BASE_URL}artist:#{strip_symbols(sim_artist['name']).to_url}?format=json&key=#{TINYSONG_API_KEY}").read)
         unless lookup_data == []
           queued_artist = Artist.find_or_create_by_name(lookup_data['ArtistName'].to_url)
           queued_artist.enqueue
